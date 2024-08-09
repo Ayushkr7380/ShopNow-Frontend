@@ -26,6 +26,21 @@ function ShopNowproductContext(props){
     const [cartItems , setCartItems] = useState([]);
 
     const [ addtocartChange , setAddtocartChange] = useState(false)
+
+
+    const [saveAddress , setsaveAddress ] = useState({
+        fullname : '',
+        phonenumber : '',
+        pincode : '',
+        city : '',
+        state : '',
+        housenumber : '',
+        roadname : ''
+    })
+
+    const [ storeAddress , setStoreAddress ] = useState([]);
+
+    const [ storeAddressIdForOrder , setStoreAddressIdForOrder] = useState('');
     
 
     //backend url
@@ -184,12 +199,42 @@ function ShopNowproductContext(props){
 
     const submitAddress = (e) =>{
         e.preventDefault();
-        console.log("Save Address")
+        console.log(saveAddress);
+        async function AddAddress(){
+            try {
+                const response = await axios.post(`${URL}/user/addaddress`,saveAddress,{withCredentials:true})
+                console.log(response.data);
+                setsaveAddress({fullname : '',
+                    phonenumber : '',
+                    pincode : '',
+                    city : '',
+                    state : '',
+                    housenumber : '',
+                    roadname : ''})
+                setAddtocartChange(!addtocartChange);
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+
+        AddAddress();
+        
     }
     
+    const fetchSavedAddress = async()=>{
+        try {
+            const response = await axios.get(`${URL}/user/addaddress`,{withCredentials:true});
+            console.log(response.data.address);
+            setStoreAddress([...response.data.address]);
+            
+            
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
     return(
         <>
-            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress}}>
+            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder}}>
                 {props.children}
             </CreateProductContext.Provider>
         </>
