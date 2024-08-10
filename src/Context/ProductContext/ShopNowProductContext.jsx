@@ -41,6 +41,11 @@ function ShopNowproductContext(props){
     const [ storeAddress , setStoreAddress ] = useState([]);
 
     const [ storeAddressIdForOrder , setStoreAddressIdForOrder] = useState('');
+
+    const [ displayRedirect , setDisplayRedirect] = useState(false);
+
+    const [redirectPageName,setRedirectPageName] = useState('');
+    const [ placeOrderLoading ,setPlaceOrderLoading] = useState(false);
     
 
     //backend url
@@ -232,9 +237,53 @@ function ShopNowproductContext(props){
             console.log(error.message);
         }
     }
+
+    const placeOrderfnc = async()=>{
+        try {
+            setPlaceOrderLoading(true);
+            const response = await axios.post(`${URL}/user/placeorder`,{
+                cartitems:cartItems,
+                addressid:storeAddressIdForOrder,
+                totalprice:cart   
+            },{withCredentials:true});
+            console.log(response.data);
+            setPlaceOrderLoading(false);
+            setCartTotal(0);
+            setIsAddedToCart([]);
+            setNoOfitems(0)
+            setCartItems([])
+            const cartResponse = await axios.post(`${URL}/user/deleteaddtocart`,{},{withCredentials:true});
+            console.log("cart items removed ",cartResponse.data);
+            let sec = 4;
+            const interval = setInterval(()=>{
+                setRedirectPageName(`Order Placed ....Redirecting to Home page in ${sec} second`);
+                sec -= 1;
+            },1000);
+            setTimeout(() => {
+                clearInterval(interval);
+                setDisplayRedirect(false);
+                navigate('/products');
+            }, 4000);
+            
+        } catch (error) {
+            setPlaceOrderLoading(false);
+            console.log(error.message);
+            let sec = 4;
+            const interval = setInterval(()=>{
+                setRedirectPageName(`Order failed....Redirecting to Cart page in ${sec} second`);
+                sec -= 1;
+            },1000);
+            setTimeout(() => {
+                clearInterval(interval);
+                setDisplayRedirect(false);
+                navigate('/addtocart');
+            }, 4000);
+            
+        }
+    }
     return(
         <>
-            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder}}>
+            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading}}>
                 {props.children}
             </CreateProductContext.Provider>
         </>

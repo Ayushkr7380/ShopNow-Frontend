@@ -145,7 +145,7 @@ function AddAddress(){
                         </form>
                     </div>
                     )}
-                    <Link to={storeAddressIdForOrder ? '/placeorder' : '#'}>
+                    <Link to={storeAddressIdForOrder ? '/payment' : '#'}>
                         <div className={`bg-orange-500 text-white  font-semibold text-center px-3 py-2 rounded-lg hover:bg-orange-700 ${!storeAddressIdForOrder ? 'pointer-events-none opacity-50' : ''}`}>
                             Next
                         </div>

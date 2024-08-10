@@ -12,7 +12,7 @@ import AddProducts from "../Components/Admin/AddProducts/AddProducts";
 import AdminRegistration from "../Components/Admin/AdminRegistration/AdminRegistration";
 import AdminLogin from "../Components/Admin/AdminLogin/AdminLogin";
 import AddAddress from "../Components/AddAddress/AddAddress";
-import PlaceOrder from "../Components/Products/PlaceOrder/PlaceOrder";
+import Payment from "../Components/Products/Payment/Payment";
 
 function CustomRoute(){
     return(
@@ -38,7 +38,7 @@ function CustomRoute(){
 
                 <Route path="/addtocart" element={<AddToCart/>} />
                 <Route path="/address" element={<AddAddress/>} />
-                <Route path="/placeorder" element={<PlaceOrder/>} />
+                <Route path="/payment" element={<Payment/>} />
             </Routes>
         </>
     )
