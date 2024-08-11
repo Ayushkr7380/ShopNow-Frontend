@@ -13,6 +13,10 @@ import AdminRegistration from "../Components/Admin/AdminRegistration/AdminRegist
 import AdminLogin from "../Components/Admin/AdminLogin/AdminLogin";
 import AddAddress from "../Components/AddAddress/AddAddress";
 import Payment from "../Components/Products/Payment/Payment";
+import Account from "../Components/AccountPage/Account";
+import Wishlist from "../Components/Wishlist/Wishlist";
+import Order from "../Components/Order/Order";
+import Profile from "../Components/Profile/Profile";
 
 function CustomRoute(){
     return(
@@ -39,6 +43,12 @@ function CustomRoute(){
                 <Route path="/addtocart" element={<AddToCart/>} />
                 <Route path="/address" element={<AddAddress/>} />
                 <Route path="/payment" element={<Payment/>} />
+
+                <Route path="/account" element={<Account/>} />
+
+                <Route path="/wishlist" element={<Wishlist/>} />
+                <Route path="/order" element={<Order/>} />
+                <Route path="/profile" element={<Profile/>} />
             </Routes>
         </>
     )

@@ -81,8 +81,9 @@ function AddToCart(){
     return(
         <>
             <div className="py-4 px-2">
-                <p className="font-semibold md:text-3xl md:px-10">Hello..! {userData.name}</p>
+                <p className="font-semibold md:text-3xl md:px-10">Hello! {userData.name}</p>
             </div>
+            <hr />
             {cartItems.length > 0 ? (
 
             <>

@@ -17,7 +17,7 @@ function ShopNowproductContext(props){
     //new user login 
     const [ userLogin , setUserLogin] = useState({phone:'',password:''});
     //store the loggedin user data
-    const [userData,setUserData] = useState([]);
+    const [userData,setUserData] = useState({});
     //whenever it makes change useeffect renders, mainly for login and logout
     const [ authStateChange,setAuthStateChange] = useState(false);
     //show logout button
@@ -135,7 +135,7 @@ function ShopNowproductContext(props){
             setShowLogoutBtn(false);
             setAuthStateChange(false);
             setIsAddedToCart([]);
-            setUserData([]);
+            setUserData({});
             setCartTotal(0);
             setNoOfitems(0);
             // fetchUser();
