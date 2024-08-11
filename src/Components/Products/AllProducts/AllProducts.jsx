@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { FaRegHeart ,FaHeart } from "react-icons/fa";
 import axios from "axios";
 import { CreateProductContext } from "../../../Context/ProductContext/CreateProductContext";
 
 const AllProducts = () => {
 
     const context = useContext(CreateProductContext);
-    const {setCartTotal , isAddedToCart , setIsAddedToCart ,noOfItems ,setNoOfitems ,postAddtoCart,userData,authStateChange,cartItems} = context;
+    const {setCartTotal , isAddedToCart , setIsAddedToCart ,noOfItems ,setNoOfitems ,postAddtoCart,userData,authStateChange,cartItems,wishlist , setWishlist,addItemToWishlist,setAuthStateChange} = context;
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     
@@ -27,6 +28,21 @@ const AllProducts = () => {
     }
 
     const [data,setData] = useState([]);
+    
+
+    const handleWishlist = (productid) =>{
+        console.log('Wishlist Clicked.. with ',productid);
+        setWishlist((prev)=>{
+            if(!prev.includes(productid)){
+                return [...prev,productid];
+            }
+            else{
+                return prev.filter(id=>id!==productid);
+            }
+        });
+        addItemToWishlist(productid);    
+    }
+    // console.log(wishlist);
 
     const URL = 'http://localhost:5000';
     async function fetchData(){
@@ -39,9 +55,24 @@ const AllProducts = () => {
         }
     }
     
+    async function fetchWishlist(){
+        console.log('fetch wishlist data');
+        try {
+            const response = await axios.get(`${URL}/user/wishlist`,{withCredentials:true});
+            console.log("Wishlist items fetched",response.data.wishlist);
+            const wishlistProductIds = response.data.wishlist.map(item => item.product._id);
+            // setAuthStateChange(!authStateChange);
+            console.log("wishlist ids",wishlistProductIds);
+            setWishlist(wishlistProductIds);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     useEffect(()=>{
         fetchData()
         // cartData()
+        fetchWishlist()
     },[authStateChange])
     return (
         <>
@@ -50,7 +81,12 @@ const AllProducts = () => {
         <div className=" py-2  relative grid grid-cols-2 md:grid-cols-4 mx-4 sm:grid-cols-3 ">
             {data && data.map((ele,idx)=>
                     <div  className="border-2 border-black  md:mx-2 mt-3 md:w-[300px] mx-[3px]  p-3 rounded-md " key={idx}>
-                        <Link  to={`/products/${ele._id}`}>               
+                        <div className="flex p-2 float-right cursor-pointer" onClick={()=>handleWishlist(ele._id)} >
+                            {wishlist.includes(ele._id) ? ( <FaHeart className="text-xl text-red-600"/> ): (<FaRegHeart className="text-xl"/> )}
+                                         
+                        </div>
+                        <Link  to={`/products/${ele._id}`}>
+                        
                         <div>
                             <img className="md:h-[230px] md:w-[300px] p-3 cursor-pointer" src={ele.ProductPhoto.secure_url} alt={ele.ProductName} />
                         </div>
