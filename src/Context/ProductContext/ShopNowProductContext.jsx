@@ -49,6 +49,8 @@ function ShopNowproductContext(props){
     const [ wishlist , setWishlist ] = useState([]);
 
     const [ orderData , setOrderData] = useState([]);
+
+    const [ fetchWishlist , setFetchWishlist ] = useState([]);
     
 
     //backend url
@@ -299,6 +301,7 @@ function ShopNowproductContext(props){
         }
     }
 
+
     const viewOrder = async() =>{
         console.log('View ordered Clicked..');
         try {
@@ -310,9 +313,21 @@ function ShopNowproductContext(props){
         }
     }
     
+
+    const viewWishlist = async()=>{
+        console.log('View Wishlist..');
+        try {
+            const response = await axios.get(`${URL}/user/wishlist`,{withCredentials:true});
+            console.log(response.data.wishlist);
+            setFetchWishlist(response.data.wishlist);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     return(
         <>
-            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData}}>
+            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist}}>
                 {props.children}
             </CreateProductContext.Provider>
         </>

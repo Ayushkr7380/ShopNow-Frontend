@@ -80,7 +80,7 @@ const AllProducts = () => {
         <div className="text-3xl font-bold text-red-600">{type}</div>
         <div className=" py-2  relative grid grid-cols-2 md:grid-cols-4 mx-4 sm:grid-cols-3 ">
             {data && data.map((ele,idx)=>
-                    <div  className="border-2 border-black  md:mx-2 mt-3 md:w-[300px] mx-[3px]  p-3 rounded-md " key={idx}>
+                    <div  className="border-2 border-black  md:mx-2 mt-3 md:w-[300px] mx-[3px]  p-1 md:p-3 rounded-md " key={idx}>
                         <div className="flex p-2 float-right cursor-pointer" onClick={()=>handleWishlist(ele._id)} >
                             {wishlist.includes(ele._id) ? ( <FaHeart className="text-xl text-red-600"/> ): (<FaRegHeart className="text-xl"/> )}
                                          

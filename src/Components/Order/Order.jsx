@@ -44,7 +44,11 @@ const Order = () => {
           </div>   
               )}
           </div>
-         ) : ('order is empty')}
+         ) : (
+          <div className="italic text-gray-500 text-center">
+            <p>You have not ordered anything yet!!</p>
+          </div>
+         )}
          </div>
     </div>
   )
