@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { FaAngleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 function HomeProduct({type,title}){
-    const [data,setData] = useState([])
+    const [data,setData] = useState([]);
     const URL = 'http://localhost:5000';
     async function fetchData(){
         try {
@@ -18,6 +18,7 @@ function HomeProduct({type,title}){
         fetchData()
     },[])
     // console.log(data);
+    
     return (
         <>  
             <div className=" py-4 relative">
@@ -29,7 +30,7 @@ function HomeProduct({type,title}){
                 </div>
                 <div className="flex justify-center">
                     {data && data.slice(0,4).map((ele,idx)=>
-                        <Link key={idx} to={`/products/${ele._id}`}>
+                        <Link key={idx} to={`/products/${ele._id}`} >
                             <div  className="border-2 border-black  md:mx-2 mt-3 md:w-[300px] mx-[3px]  rounded-md p-3 hover:bg-gray-100">
                                 <img className="md:w-[300px] p-3" src={ele.ProductPhoto.secure_url} alt={ele.ProductName} />
                                 <hr />
