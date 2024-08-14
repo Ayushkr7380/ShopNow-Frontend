@@ -1,13 +1,19 @@
 import { useContext, useEffect } from "react"
 import { CreateProductContext } from "../../Context/ProductContext/CreateProductContext"
 import { FaRegHeart } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+import { MdOutlineDeleteForever } from "react-icons/md";
 const Wishlist = () => {
   const context = useContext(CreateProductContext);
-  const { viewWishlist ,fetchWishlist } = context;
+  const { viewWishlist ,fetchWishlist ,removeFromWishlist,wishlistChange} = context;
 
+
+  const handleremoveFromWishlist = (wishlistid) =>{
+    removeFromWishlist(wishlistid);
+  }
   useEffect(()=>{
     viewWishlist()
-  },[])
+  },[wishlistChange])
 
   console.log("fetch ",fetchWishlist)
   return (
@@ -25,12 +31,17 @@ const Wishlist = () => {
           <div className=" py-2  relative grid grid-cols-2 md:flex md:flex-wrap mx-4 sm:grid-cols-3">
             {fetchWishlist.map((ele,idx)=>
             <div key={idx} className="border-2 border-gray-400  md:mx-2 mt-3 md:w-[300px] mx-[3px]  p-3 rounded-md " >
-                <div>
-                            <img className="md:h-[230px] md:w-[300px] p-3 cursor-pointer" src={ele.product.ProductPhoto.secure_url} alt={ele.product.ProductName} />
-                        </div>
-                        <hr />
-                        <p className="ml-2">{ele.product.ProductName}</p>
-                        <p className="ml-2 text-lg font-bold">₹{ele.product.ProductPrice}</p>
+                <div className="float-right text-xl text-red-600 cursor-pointer " onClick={()=>handleremoveFromWishlist(ele._id)}>
+                  <MdOutlineDeleteForever />
+                </div>
+                <Link  to={`/products/${ele.product._id}`}>
+                  <div>
+                      <img className="md:h-[230px] md:w-[300px] p-3 cursor-pointer" src={ele.product.ProductPhoto.secure_url} alt={ele.product.ProductName} />
+                  </div>
+                <hr/>
+                <p className="ml-2">{ele.product.ProductName}</p>
+                <p className="ml-2 text-lg font-bold">₹{ele.product.ProductPrice}</p>
+                </Link>
             </div>
             )}
           </div>

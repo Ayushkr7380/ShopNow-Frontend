@@ -54,6 +54,8 @@ function ShopNowproductContext(props){
 
 
     const [ buyNowData , setBuyNowData ] = useState([]);
+
+    const [ wishlistChange , setWishlistChange] = useState(false);
     
 
     //backend url
@@ -367,17 +369,32 @@ function ShopNowproductContext(props){
             const response = await axios.get(`${URL}/user/wishlist`,{withCredentials:true});
             console.log(response.data.wishlist);
             setFetchWishlist(response.data.wishlist);
+            
         } catch (error) {
             console.log(error.message);
         }
     }
 
     
-   
+   const removeFromWishlist = async(wishlistid) =>{
+        console.log("removing wishlist id is ",wishlistid);
+        try {
+            const response = await axios.post(`${URL}/user/removeitemfromwishlist`,{
+                wishlistid:wishlistid
+            },{
+                withCredentials:true
+            });
+            console.log(response.data);
+            setWishlistChange(!wishlistChange);
+        } catch (error) {
+            console.log(error.message);
+            setWishlistChange(!wishlistChange);
+        }
+   }
 
     return(
         <>
-            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist, buyNowData , setBuyNowData}}>
+            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist, buyNowData , setBuyNowData,removeFromWishlist,wishlistChange}}>
                 {props.children}
             </CreateProductContext.Provider>
         </>

@@ -18,10 +18,7 @@ function AddToCart(){
     function noofitemsfromcart(){
         cartItems.map((ele)=>setQuantityOfEachItem((prev)=>({...prev,[ele._id]:ele.noofitems})));
         cartItems.map((ele)=>setPriceOfEachItem((prev)=>({...prev,[ele._id]:ele.totalprice})));
-
-        
-        // console.log('total amount : ',total)
-        
+  
     }
     
 
