@@ -26,7 +26,7 @@ function Navbar(){
                 
                     <div className=" md:w-48 flex-shrink-0">
                     <Link to={'/'}>
-                        <p className="h-8 md:h-10 font-bold md:text-3xl drop-shadow-lg text-white">ShopNow</p>
+                        <p className="h-8 md:h-10 font-bold md:text-3xl drop-shadow-lg text-white italic">ShopNow</p>
                     </Link>
                     </div>
 

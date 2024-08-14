@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation ,useNavigate } from "react-router-dom";
 import { FaRegHeart ,FaHeart } from "react-icons/fa";
 import axios from "axios";
 import { CreateProductContext } from "../../../Context/ProductContext/CreateProductContext";
@@ -7,8 +7,10 @@ import { CreateProductContext } from "../../../Context/ProductContext/CreateProd
 const AllProducts = () => {
 
     const context = useContext(CreateProductContext);
-    const {setCartTotal , isAddedToCart , setIsAddedToCart ,noOfItems ,setNoOfitems ,postAddtoCart,userData,authStateChange,cartItems,wishlist , setWishlist,addItemToWishlist,setAuthStateChange} = context;
+    const {setCartTotal , isAddedToCart , setIsAddedToCart ,noOfItems ,setNoOfitems ,postAddtoCart,userData,authStateChange,cartItems,wishlist , setWishlist,addItemToWishlist,setAuthStateChange,buyNowData , setBuyNowData} = context;
     const location = useLocation();
+
+    const navigate = useNavigate();
     const queryParams = new URLSearchParams(location.search);
     
     const type = queryParams.get('type');
@@ -69,15 +71,30 @@ const AllProducts = () => {
         }
     }
 
+
+    const handleBuyNow = (productid,price)=>{
+        console.log('Buy Now id',productid);
+        setBuyNowData([{
+            'products':{
+                "_id":productid
+            },
+            'noofitems' : '1',  
+            "price":price
+        }]);
+        navigate('/address')
+    }
     useEffect(()=>{
         fetchData()
         // cartData()
+        setBuyNowData([])
         fetchWishlist()
     },[authStateChange])
+
+    console.log('Buy Now data from allproduct page',buyNowData)
     return (
         <>
         
-        <div className="text-3xl font-bold text-red-600">{type}</div>
+        <div className="md:text-3xl text-2xl font-bold  m-3 p-3 italic underline">Trending {type}</div>
         <div className=" py-2  relative grid grid-cols-2 md:grid-cols-4 mx-4 sm:grid-cols-3 ">
             {data && data.map((ele,idx)=>
                     <div  className="border-2 border-black  md:mx-2 mt-3 md:w-[300px] mx-[3px]  p-1 md:p-3 rounded-md " key={idx}>
@@ -114,8 +131,9 @@ const AllProducts = () => {
                                     <p className="bg-red-500 text-white md:px-3 py-[3px] px-[5px] text-[14px] md:py-2 md:font-semibold rounded-lg hover:bg-red-700">Add to cart</p>
                                 </Link>
                             )}
-
-                            <p className="bg-orange-500 text-white md:px-3 py-[3px] px-[5px] text-[14px] md:py-2 md:font-semibold rounded-lg hover:bg-orange-600">Buy Now</p>
+                            <div onClick={()=>handleBuyNow(ele._id,ele.ProductPrice)}>
+                                <p className="bg-orange-500 text-white md:px-3 py-[3px] px-[5px] text-[14px] md:py-2 md:font-semibold rounded-lg hover:bg-orange-600">Buy Now</p>
+                            </div>
                         </div>
                     </div>               
             )}

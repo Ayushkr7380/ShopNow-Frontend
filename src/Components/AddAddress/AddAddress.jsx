@@ -7,7 +7,7 @@ function AddAddress(){
 
     
     const context = useContext(CreateProductContext);
-    const { submitAddress ,saveAddress , setsaveAddress ,fetchSavedAddress , storeAddress ,storeAddressIdForOrder , setStoreAddressIdForOrder,addtocartChange} = context;
+    const { submitAddress ,saveAddress , setsaveAddress ,fetchSavedAddress , storeAddress ,storeAddressIdForOrder , setStoreAddressIdForOrder,addtocartChange,buyNowData} = context;
 
     const [showAddAddress,setShowAddAddress] = useState(false);
     const [ isSetAddressColor , setAddressIdColor] = useState({});
@@ -37,6 +37,7 @@ function AddAddress(){
     },[addtocartChange])
     console.log('StoredAddress',storeAddress);
     console.log(isSetAddressColor);
+    console.log('Buy Now data',buyNowData);
     
     return(
         <>

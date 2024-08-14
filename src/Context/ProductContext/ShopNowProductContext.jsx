@@ -51,6 +51,9 @@ function ShopNowproductContext(props){
     const [ orderData , setOrderData] = useState([]);
 
     const [ fetchWishlist , setFetchWishlist ] = useState([]);
+
+
+    const [ buyNowData , setBuyNowData ] = useState([]);
     
 
     //backend url
@@ -244,9 +247,52 @@ function ShopNowproductContext(props){
     }
 
     const placeOrderfnc = async()=>{
-        try {
-            setPlaceOrderLoading(true);
-            const response = await axios.post(`${URL}/user/placeorder`,{
+        if(buyNowData.length > 0){
+
+            console.log('Buy Now Worked..');
+            try {
+                setPlaceOrderLoading(true);
+                const totalprice = buyNowData.reduce((acc,item)=>acc + Number(item.price),0)
+                const response = await axios.post(`${URL}/user/placeorder`,{
+                    cartitems:buyNowData,
+                    addressid:storeAddressIdForOrder,
+                    totalprice:totalprice   
+                },{withCredentials:true});
+                console.log(response.data);
+                setPlaceOrderLoading(false);
+                setBuyNowData([]);
+                let sec = 4;
+                const interval = setInterval(()=>{
+                    setRedirectPageName(`Order Placed ....Redirecting to Home page in ${sec} second`);
+                    sec -= 1;
+                },1000);
+                setTimeout(() => {
+                    clearInterval(interval);
+                    setDisplayRedirect(false);
+                    navigate('/products');
+                }, 4000);
+            } catch (error) {
+                setPlaceOrderLoading(false);
+                console.log(error.message);
+                setBuyNowData([]);
+                let sec = 4;
+                const interval = setInterval(()=>{
+                    setRedirectPageName(`Order failed....Redirecting to Cart page in ${sec} second`);
+                    sec -= 1;
+                },1000);
+                setTimeout(() => {
+                    clearInterval(interval);
+                    setDisplayRedirect(false);
+                    navigate('/addtocart');
+                }, 4000);
+            }
+        }
+        else{
+            
+            console.log('add to cart Worked..');
+            try {
+                setPlaceOrderLoading(true);
+                const response = await axios.post(`${URL}/user/placeorder`,{
                 cartitems:cartItems,
                 addressid:storeAddressIdForOrder,
                 totalprice:cart   
@@ -270,20 +316,21 @@ function ShopNowproductContext(props){
                 navigate('/products');
             }, 4000);
             
-        } catch (error) {
-            setPlaceOrderLoading(false);
-            console.log(error.message);
-            let sec = 4;
-            const interval = setInterval(()=>{
-                setRedirectPageName(`Order failed....Redirecting to Cart page in ${sec} second`);
-                sec -= 1;
-            },1000);
-            setTimeout(() => {
-                clearInterval(interval);
-                setDisplayRedirect(false);
-                navigate('/addtocart');
-            }, 4000);
-            
+            } catch (error) {
+                setPlaceOrderLoading(false);
+                console.log(error.message);
+                let sec = 4;
+                const interval = setInterval(()=>{
+                    setRedirectPageName(`Order failed....Redirecting to Cart page in ${sec} second`);
+                    sec -= 1;
+                },1000);
+                setTimeout(() => {
+                    clearInterval(interval);
+                    setDisplayRedirect(false);
+                    navigate('/addtocart');
+                }, 4000);
+                
+            }
         }
     }
 
@@ -330,7 +377,7 @@ function ShopNowproductContext(props){
 
     return(
         <>
-            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist,}}>
+            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist, buyNowData , setBuyNowData}}>
                 {props.children}
             </CreateProductContext.Provider>
         </>

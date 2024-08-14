@@ -1,7 +1,14 @@
+import { useContext, useEffect } from "react"
 import HomeProduct from "../HomeProduct/HomeProduct"
 import ImageSlider from "../ImageSlider/ImageSlider"
+import { CreateProductContext } from "../../../Context/ProductContext/CreateProductContext";
 
 function Home(){
+    const context = useContext(CreateProductContext);
+    const { setBuyNowData } = context;
+    useEffect(()=>{
+        setBuyNowData([]);
+    },[])
     return(
         <>                  
             <ImageSlider/> 

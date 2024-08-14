@@ -5,7 +5,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 function Payment(){
     const context = useContext(CreateProductContext);
-    const { storeAddressIdForOrder ,cart , cartData , cartItems ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading} = context;
+    const { storeAddressIdForOrder ,cart , cartData , cartItems ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,buyNowData} = context;
     const URL = `http://localhost:5000`;
     const [selectedAddressData , setSelectedAddressData] = useState({});
     
@@ -21,9 +21,15 @@ function Payment(){
             console.log(error.message);
         }
     }
+    const [ buyNowTotalPriceState ,setBuyNowTotalPriceState] = useState(0)
+    function buyNowTotalPrice(){
+        const totalprice = buyNowData.reduce((acc,item)=>acc + Number(item.price),0);
+        setBuyNowTotalPriceState(totalprice);
+    }
     useEffect(()=>{
         fetchSelectedAddress();
-        
+        setBuyNowTotalPriceState(0);
+        buyNowTotalPrice()
     },[]);
 
     const handleCheckOut = () =>{
@@ -32,6 +38,7 @@ function Payment(){
     }
     console.log(selectedAddressData);
     console.log("In P",cartItems);
+    console.log("storeAddressIdForOrder",storeAddressIdForOrder);
     return(
         <>
             <div className="">
@@ -81,7 +88,12 @@ function Payment(){
                     </div>
                 </div>
                 <div className="bg-orange-400 text-white py-3 px-5 fixed w-full bottom-0  font-semibold flex justify-between items-center">
-                    <p>Total ₹{cart} /-</p>
+                    {buyNowTotalPriceState > 0 ?(
+                        <p>Total ₹{buyNowTotalPriceState} /-</p>
+                    ):(
+
+                        <p>Total ₹{cart} /-</p>
+                    )}
                     <p className="bg-red-500 px-3 py-1 rounded-lg hover:bg-red-700 cursor-pointer" onClick={handleCheckOut}>CheckOut</p>
                 </div>
                 {displayRedirect && 

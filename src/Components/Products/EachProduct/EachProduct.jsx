@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useParams ,Link ,useNavigate} from "react-router-dom"
 import axios from 'axios';
 import { CreateProductContext } from "../../../Context/ProductContext/CreateProductContext";
 import { FaRegHeart ,FaHeart } from "react-icons/fa";
@@ -7,7 +7,8 @@ function EachProduct(){
     const {productid} = useParams();
     const [itemData , setItemData] = useState({});
     const context = useContext(CreateProductContext);
-    const { setCartTotal , isAddedToCart , setIsAddedToCart ,noOfItems ,setNoOfitems ,postAddtoCart,userData,authStateChange, wishlist , setWishlist,addItemToWishlist,} = context;
+    const { setCartTotal , isAddedToCart , setIsAddedToCart ,noOfItems ,setNoOfitems ,postAddtoCart,userData,authStateChange, wishlist , setWishlist,addItemToWishlist, buyNowData , setBuyNowData} = context;
+    const navigate = useNavigate();
     const URL = 'http://localhost:5000';
     
     const fetchEachProductdata = async(productid)=>{
@@ -57,11 +58,25 @@ function EachProduct(){
             console.log(error.message);
         }
     }
+
+    const handleBuyNow = (productid,price)=>{
+        console.log('Buy Now id',productid);
+        setBuyNowData([{
+            'products':{
+                "_id":productid
+            },
+            'noofitems' : '1',  
+            "price":price
+        }]);
+        navigate('/address')
+    }
     useEffect(()=>{
         fetchEachProductdata(productid);
+        setBuyNowData([]);
         fetchWishlist()
     },[authStateChange])
-    console.log('a',itemData)
+    // console.log('a',itemData);
+    console.log('Buy Now data',buyNowData);
     return(
         <>
             <div className=" m-2">
@@ -101,9 +116,11 @@ function EachProduct(){
                                     <p className="bg-red-500 text-white md:px-3 py-[3px] px-[5px] text-[14px] md:py-2 md:font-semibold rounded-lg hover:bg-red-700">Add to cart</p>
                                 </Link>
                             )}
-                            <p className="border-2 border-gray-500 py-1 rounded-md font-semibold bg-red-600 text-white px-2">
-                                Buy Now
-                            </p>
+                            <div onClick={()=>handleBuyNow(itemData._id,itemData.ProductPrice)}>
+                                <p className="border-2 border-gray-500 py-1 rounded-md font-semibold bg-red-600 text-white px-2">
+                                    Buy Now
+                                </p>
+                            </div>
                         </div>
                     </div>
                     

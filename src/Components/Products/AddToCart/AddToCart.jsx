@@ -3,10 +3,9 @@ import { CreateProductContext } from "../../../Context/ProductContext/CreateProd
 import { RxCross2 } from "react-icons/rx";
 import { Link } from "react-router-dom";
 
-
 function AddToCart(){
     const context = useContext(CreateProductContext);
-    const { cartData ,cartItems,setCartTotal,removeItemFromCart,authStateChange,handleQuanityofEachItem,cart,userData} = context;
+    const { cartData ,cartItems,setCartTotal,removeItemFromCart,authStateChange,handleQuanityofEachItem,cart,userData,setBuyNowData} = context;
     console.log('CartItems',cartItems);
 
     //Quantity of each item in cart
@@ -29,6 +28,7 @@ function AddToCart(){
     useEffect(()=>{
         cartData();
         noofitemsfromcart();
+        setBuyNowData([]);
     },[authStateChange])
 
     const handleChange = (itemid,value,totalprice)=>{
