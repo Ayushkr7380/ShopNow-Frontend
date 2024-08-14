@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CreateProductContext } from "../../../Context/ProductContext/CreateProductContext";
-import { RxCross2 } from "react-icons/rx";
 import { Link } from "react-router-dom";
+import { MdOutlineDeleteForever } from "react-icons/md";
 
 function AddToCart(){
     const context = useContext(CreateProductContext);
@@ -127,8 +127,8 @@ function AddToCart(){
                                 )}</p>
 
                             </div>
-                            <div className="m-3 text-2xl h-[30px] flex items-center cursor-pointer">
-                                <RxCross2 onClick={()=>removeItemFromCart(ele._id)}/>
+                            <div className="m-3 text-2xl h-[30px] flex items-center cursor-pointer text-red-600">
+                                <MdOutlineDeleteForever onClick={()=>removeItemFromCart(ele._id)}/>
                             </div>
                         </div>
                     </div>
