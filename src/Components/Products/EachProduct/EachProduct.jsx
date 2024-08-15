@@ -3,12 +3,14 @@ import { useParams ,Link ,useNavigate} from "react-router-dom"
 import axios from 'axios';
 import { CreateProductContext } from "../../../Context/ProductContext/CreateProductContext";
 import { FaRegHeart ,FaHeart } from "react-icons/fa";
+import ClipLoader from "react-spinners/ClipLoader";
 function EachProduct(){
     const {productid} = useParams();
     const [itemData , setItemData] = useState({});
     const context = useContext(CreateProductContext);
     const { setCartTotal , isAddedToCart , setIsAddedToCart ,noOfItems ,setNoOfitems ,postAddtoCart,userData,authStateChange, wishlist , setWishlist,addItemToWishlist, buyNowData , setBuyNowData} = context;
     const navigate = useNavigate();
+    const [ loadingEachItem , setLoadingEachItem] = useState(false);
     const URL = 'http://localhost:5000';
     
     const fetchEachProductdata = async(productid)=>{
@@ -48,13 +50,16 @@ function EachProduct(){
     async function fetchWishlist(){
         console.log('fetch wishlist data');
         try {
+            setLoadingEachItem(true);
             const response = await axios.get(`${URL}/user/wishlist`,{withCredentials:true});
             console.log("Wishlist items fetched",response.data.wishlist);
             const wishlistProductIds = response.data.wishlist.map(item => item.product._id);
             // setAuthStateChange(!authStateChange);
             console.log("wishlist ids",wishlistProductIds);
+            setLoadingEachItem(false);
             setWishlist(wishlistProductIds);
         } catch (error) {
+            setLoadingEachItem(false);
             console.log(error.message);
         }
     }
@@ -78,7 +83,11 @@ function EachProduct(){
     // console.log('a',itemData);
     console.log('Buy Now data',buyNowData);
     return(
-        <>
+        <>{loadingEachItem  ? (
+            <div className="flex justify-center my-[35vh]">
+                <ClipLoader/>
+            </div>
+        ) : (
             <div className=" m-2">
                 <div className=" m-2 p-2 md:flex">
                     <div className="md:w-1/2 p-2 md:p-5 md:mx-2">
@@ -126,6 +135,7 @@ function EachProduct(){
                     
                 </div>
             </div>
+            )}
         </>
     )
 }
