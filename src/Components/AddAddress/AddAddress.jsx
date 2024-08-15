@@ -2,12 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { CreateProductContext } from "../../Context/ProductContext/CreateProductContext";
 import { FaCirclePlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { MdOutlineDeleteForever } from "react-icons/md";
 
 function AddAddress(){
 
     
     const context = useContext(CreateProductContext);
-    const { submitAddress ,saveAddress , setsaveAddress ,fetchSavedAddress , storeAddress ,storeAddressIdForOrder , setStoreAddressIdForOrder,addtocartChange,buyNowData} = context;
+    const { submitAddress ,saveAddress , setsaveAddress ,fetchSavedAddress , storeAddress ,storeAddressIdForOrder , setStoreAddressIdForOrder,addtocartChange,buyNowData,deleteAddress,addressPageChange} = context;
 
     const [showAddAddress,setShowAddAddress] = useState(false);
     const [ isSetAddressColor , setAddressIdColor] = useState({});
@@ -32,9 +33,14 @@ function AddAddress(){
         setAddressIdColor({[addressid]:"orange"});
     }
 
+    const handleDeleteAddress = (addressid)=>{
+        console.log('Deleting address',addressid);
+        deleteAddress(addressid);
+    }
+
     useEffect(()=>{
         fetchSavedAddress()
-    },[addtocartChange])
+    },[addtocartChange,addressPageChange])
     console.log('StoredAddress',storeAddress);
     console.log(isSetAddressColor);
     console.log('Buy Now data',buyNowData);
@@ -49,14 +55,19 @@ function AddAddress(){
                     </div>
                     <div className="md:flex md:flex-wrap md:gap-3 justify-center ">
                         {storeAddress && storeAddress.map((ele,idx)=>
-                            <div key={idx} className={`border-2 border-black p-3 rounded-lg my-2 hover:bg-orange-200 cursor-pointer ${storeAddressIdForOrder === ele._id ? 'bg-orange-200' : ''}`} onClick={()=>setAddressIdForOrderfnc(ele._id)
-                            }>
+                        <div className="border-2 border-black  rounded-md m-2">
+                            <div className="float-right  p-1 text-xl hover:text-red-500 text-blue-700 cursor-pointer" onClick={()=>handleDeleteAddress(ele._id)}>
+                                <MdOutlineDeleteForever />
+                            </div>
+                            <div key={idx} className={` hover:bg-gray-200 p-2 cursor-pointer ${storeAddressIdForOrder === ele._id ? 'bg-gray-200' : ''}`} onClick={()=>setAddressIdForOrderfnc(ele._id)
+                            }>                                
                                 <p>{ele.fullname}</p>
                                 <p>{ele.housenumber} , {ele.roadname}</p>
                                 <p>{ele.city} , {ele.pincode}</p>
                                 <p>{ele.state}</p>
-                                <p className="font-semibold">{ele.phonenumber}</p>
+                                <p className="font-semibold">{ele.phonenumber}</p>  
                             </div>
+                        </div>
                         )}
                     </div>
                 </div>
