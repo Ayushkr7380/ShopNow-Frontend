@@ -89,7 +89,7 @@ function AddToCart(){
                     {cartItems && cartItems.map((ele,idx)=>
                     
                     <div key={idx}>
-                        <div className="border-2 border-black flex m-2  justify-between rounded-2xl bg-blue-100">
+                        <div className="border-2 border-gray-400 flex m-2  justify-between rounded-md ">
                             <div className="m-3">
                                 <img src={ele.products.ProductPhoto.secure_url} alt={ele.products.ProductName} className="md:h-[200px] w-[200px]  p-3"/>
                             </div>
@@ -131,8 +131,9 @@ function AddToCart(){
                     </div>
                     )}
                 </div>
+                <div className="md:w-[1px] hidden md:block border-[1px] border-black"></div>
                 <div className=" md:w-1/2 h-full md:sticky md:top-1  md:px-5 py-3  mx-2">
-                    <div className="border-2 border-black bg-gray-200  m-2 rounded-lg">
+                    <div className="border-2 border-gray-300   m-2 rounded-md">
 
                         <table className="my-3 mx-auto">
                             <thead >

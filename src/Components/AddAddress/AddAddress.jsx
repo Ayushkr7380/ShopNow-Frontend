@@ -44,7 +44,8 @@ function AddAddress(){
             <div className="m-3">           
                 <div className="border-2 my-2 p-2">
                     <div>
-                        <p className="font-semibold">Saved Addresses..</p>
+                        <p className="font-semibold text-2xl italic">Saved Addresses..</p>
+                        <p className="text-gray-400 italic p-1">{storeAddress.length} Saved address</p>
                     </div>
                     <div className="md:flex md:flex-wrap md:gap-3 justify-center ">
                         {storeAddress && storeAddress.map((ele,idx)=>
@@ -65,13 +66,13 @@ function AddAddress(){
                 </div>
                 {showAddAddress &&
                  (
-                    <div className="border-2 my-2">
-                        <form className="flex flex-col my-3  mx-3 md:mx-auto border-2 border-black p-3 md:w-1/2 " onSubmit={submitAddress}>
+                    <div className=" my-2">
+                        <form className="flex flex-col my-3  mx-3 md:mx-auto border-2 border-gray p-3 md:w-1/2 rounded-md italic" onSubmit={submitAddress}>
                             <div>
                                 <p>Full Name</p>
                                 <input
                                     type="text"
-                                    className="border-2  border-black rounded-md md:w-1/2 md:px-2 py-1 px-1 cursor-pointer"
+                                    className="border-2  border-gray-400 rounded-md md:w-1/2 md:px-2 py-1 px-1 cursor-pointer "
                                     onChange={handleChange}
                                     name='fullname'
                                     value={saveAddress.fullname}
@@ -81,7 +82,7 @@ function AddAddress(){
                                 <p>Phone Number</p>
                                 <input
                                     type="text"
-                                    className="border-2  border-black rounded-md md:w-1/2 md:px-2 py-1 px-1 cursor-pointer"
+                                    className="border-2  border-gray-400 rounded-md md:w-1/2 md:px-2 py-1 px-1 cursor-pointer "
                                     onChange={handleChange}
                                     name='phonenumber'
                                     value={saveAddress.phonenumber}
@@ -92,7 +93,7 @@ function AddAddress(){
                                     <p>Pincode</p>
                                     <input
                                         type="text"
-                                        className="border-2  border-black rounded-md  md:px-2 py-1 md:w-full w-[90%] px-1 cursor-pointer"
+                                        className="border-2  border-gray-400 rounded-md  md:px-2 py-1 md:w-full w-[90%] px-1 cursor-pointer "
                                         onChange={handleChange}
                                         name='pincode'
                                         value={saveAddress.pincode}
@@ -102,7 +103,7 @@ function AddAddress(){
                                     <p>City</p>
                                     <input
                                         type="text"
-                                        className="border-2  border-black rounded-md md:px-2 py-1 md:w-full w-[90%] px-1 cursor-pointer"
+                                        className="border-2  border-gray-400 rounded-md md:px-2 py-1 md:w-full w-[90%] px-1 cursor-pointer "
                                         onChange={handleChange}
                                         name='city'
                                         value={saveAddress.city}
@@ -112,7 +113,7 @@ function AddAddress(){
                                     <p>State</p>
                                     <input
                                         type="text"
-                                        className="border-2  border-black rounded-md  md:px-2 py-1 md:w-full w-[90%] px-1 cursor-pointer"
+                                        className="border-2  border-gray-400 rounded-md  md:px-2 py-1 md:w-full w-[90%] px-1 cursor-pointer "
                                         onChange={handleChange}
                                         name='state'
                                         value={saveAddress.state}
@@ -123,7 +124,7 @@ function AddAddress(){
                                 <p>House No.,Building Name</p>
                                 <input
                                     type="text"
-                                    className="border-2  border-black rounded-md md:w-1/2 md:px-2 py-1 px-1 cursor-pointer"
+                                    className="border-2  border-gray-400 rounded-md md:w-1/2 md:px-2 py-1 px-1 cursor-pointer "
                                     onChange={handleChange}
                                     name='housenumber'
                                     value={saveAddress.housenumber}
@@ -133,7 +134,7 @@ function AddAddress(){
                                 <p>Road Name,Area,Colony</p>
                                 <input
                                     type="text"
-                                    className="border-2 border-black rounded-md md:w-1/2 md:px-2 py-1 px-1 cursor-pointer"
+                                    className="border-2 border-gray-400 rounded-md md:w-1/2 md:px-2 py-1 px-1 cursor-pointer  "
                                     onChange={handleChange}
                                     name='roadname'
                                     value={saveAddress.roadname}
