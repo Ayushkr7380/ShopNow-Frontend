@@ -59,6 +59,11 @@ function ShopNowproductContext(props){
 
     const [ addressPageChange , setAddressPageChange] = useState(false);
 
+    const [editProfile,setEditProfile] = useState({name:'',phone:'',email:''});
+
+    const [ loadingEditProfile , setLoadingEditProfile ] = useState(false);
+    const [ editProfileStatus , setEditProfileStatus ] = useState("");
+
     
 
     //backend url
@@ -411,9 +416,27 @@ function ShopNowproductContext(props){
         }
    }
 
+   const editProfileChange =async()=>{
+    console.log("Edit Profile Clicked..");
+    setLoadingEditProfile(true);
+    try {
+        const response = await axios.post(`${URL}/user/editprofile`,{
+            editProfile:editProfile
+        },{withCredentials:true});
+        console.log("message    ",response.data.message);
+        setUserData({...response.data.user});
+        setEditProfileStatus(response.data.message);
+        setLoadingEditProfile(false);
+    } catch (error) {
+        console.log(error.message);
+        setLoadingEditProfile(false);
+        setEditProfileStatus(response.data.message);
+    }
+   }
+
     return(
         <>
-            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist, buyNowData , setBuyNowData,removeFromWishlist,wishlistChange,deleteAddress,addressPageChange}}>
+            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist, buyNowData , setBuyNowData,removeFromWishlist,wishlistChange,deleteAddress,addressPageChange,editProfile,setEditProfile,editProfileChange,loadingEditProfile , setLoadingEditProfile ,editProfileStatus,setEditProfileStatus}}>
                 {props.children}
             </CreateProductContext.Provider>
         </>

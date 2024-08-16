@@ -30,7 +30,7 @@ function Account(){
                     <Link to={'/profile'}>
                         <div className="border-2  md:mx-3 md:px-10 px-2 py-1 rounded-md font-medium flex items-center gap-2 hover:bg-gray-200">
                             <MdOutlineAccountCircle className="text-blue-700"/>
-                            <p>Profile</p>
+                            <p>Edit Profile</p>
                         </div>
                     </Link>
                 </div>
