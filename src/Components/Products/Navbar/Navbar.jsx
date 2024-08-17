@@ -1,19 +1,34 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CreateProductContext } from "../../../Context/ProductContext/CreateProductContext";
-import axios from "axios";
+import { FaSearch } from "react-icons/fa";
+
 function Navbar(){
-    const URL = `http://localhost:5000`;
     const context = useContext(CreateProductContext);
-    const { cart ,noOfItems ,userData,setUserData ,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn ,cartData,fetchUser,addtocartChange} = context;
+    const { cart ,noOfItems ,userData,authStateChange,cartData,fetchUser,addtocartChange,searchPagenavigate , setSearchPageNavigate,setSeachInput,searchInput ,searchInputfnc} = context;
+    const navigate = useNavigate();
+  
+    const handleInputClick =()=>{
+        console.log('Input Clicked');
+        navigate('/searchpage')
+        
+        searchInputfnc()
+    }
 
-    
-    
-    
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            navigate('/searchpage')
+        
+            searchInputfnc()
+        }
+      };
 
+    const handleChangeInput = (e) =>{
+        setSeachInput(e.target.value)
+    }
     useEffect(()=>{
         fetchUser()
-        cartData()      
+        cartData()    
     },[authStateChange,addtocartChange])
 
     
@@ -31,13 +46,20 @@ function Navbar(){
                     </div>
 
                     
-                    <div className="w-full max-w-xs xl:max-w-lg 2xl:max-w-2xl bg-gray-100 rounded-md hidden xl:flex items-center ">
-                    <select className="bg-transparent uppercase font-bold text-sm p-4 mr-4" name="" id="">
-                        <option>all categories</option>
-                        
-                    </select>
-                    <input className="border-l border-gray-300 bg-transparent font-semibold text-sm pl-4" type="text" placeholder="I'm searching for ..."/>
-                    <svg className="ml-auto h-5 px-4 text-gray-500 svg-inline--fa fa-search fa-w-16 fa-9x" aria-hidden="true" focusable="false" data-prefix="far" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" ><path fill="currentColor" d="M508.5 468.9L387.1 347.5c-2.3-2.3-5.3-3.5-8.5-3.5h-13.2c31.5-36.5 50.6-84 50.6-136C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c52 0 99.5-19.1 136-50.6v13.2c0 3.2 1.3 6.2 3.5 8.5l121.4 121.4c4.7 4.7 12.3 4.7 17 0l22.6-22.6c4.7-4.7 4.7-12.3 0-17zM208 368c-88.4 0-160-71.6-160-160S119.6 48 208 48s160 71.6 160 160-71.6 160-160 160z"></path></svg>
+                    <div className="w-full max-w-xs xl:max-w-lg 2xl:max-w-2xl bg-gray-100 rounded flex items-center justify-between p-1 ml-[20px]">    
+                            <input 
+                                className="bg-transparent font-semibold text-sm px-3 py-2 w-full outline-none"
+                                type="text"
+                                placeholder="I'm searching for ..."
+                                onChange={handleChangeInput}
+                                value={searchInput}
+                                onKeyDown={handleKeyDown} 
+                            />
+                                
+                            <div 
+                                className="text-xl hover:text-blue-600 cursor-pointer p-2" onClick={handleInputClick}>
+                                <FaSearch />
+                            </div>
                     </div>
                     
                     <nav className="contents">

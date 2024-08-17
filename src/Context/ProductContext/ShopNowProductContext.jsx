@@ -64,6 +64,14 @@ function ShopNowproductContext(props){
     const [ loadingEditProfile , setLoadingEditProfile ] = useState(false);
     const [ editProfileStatus , setEditProfileStatus ] = useState("");
 
+    const [ searchPagenavigate , setSearchPageNavigate ] = useState(true);
+
+    const [ searchInput , setSeachInput ] = useState("");
+
+    const [ searchData ,setSearchData] = useState([]);
+    const [ loadingSearchInput , setLoadingSearchInput ] = useState(false);
+    const [ searchInputStatus , setSearchInputStatus ] = useState("");
+
     
 
     //backend url
@@ -434,9 +442,28 @@ function ShopNowproductContext(props){
     }
    }
 
+   const searchInputfnc = async()=>{
+        console.log('Input Data',searchInput);
+        try {
+            setLoadingSearchInput(true);
+            const response = await axios.get(`${URL}/products/search/?search=${searchInput}`);
+            console.log(response.data); 
+            setSearchData(response.data.product);
+            setLoadingSearchInput(false);
+            setSearchInputStatus('');
+            setSeachInput("");
+        } catch (error) {
+            console.log(error.message)
+            setLoadingSearchInput(false);
+            setSearchData([]);
+            setSearchInputStatus(error.response.data.message);
+        }
+   }
+   console.log('Search Input Status',searchInputStatus);
+   
     return(
         <>
-            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist, buyNowData , setBuyNowData,removeFromWishlist,wishlistChange,deleteAddress,addressPageChange,editProfile,setEditProfile,editProfileChange,loadingEditProfile , setLoadingEditProfile ,editProfileStatus,setEditProfileStatus}}>
+            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist, buyNowData , setBuyNowData,removeFromWishlist,wishlistChange,deleteAddress,addressPageChange,editProfile,setEditProfile,editProfileChange,loadingEditProfile , setLoadingEditProfile ,editProfileStatus,setEditProfileStatus,searchPagenavigate , setSearchPageNavigate,searchInput , setSeachInput,searchInputfnc ,searchData,loadingSearchInput,searchInputStatus}}>
                 {props.children}
             </CreateProductContext.Provider>
         </>

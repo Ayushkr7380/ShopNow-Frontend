@@ -17,6 +17,7 @@ import Account from "../Components/AccountPage/Account";
 import Wishlist from "../Components/Wishlist/Wishlist";
 import Order from "../Components/Order/Order";
 import Profile from "../Components/Profile/Profile";
+import Search from "../Components/Products/Search/Search";
 
 function CustomRoute(){
     return(
@@ -34,6 +35,7 @@ function CustomRoute(){
                 {/* product routes  */}
                 <Route path="/" element={<Navigate to="/products"/>}/>
                 <Route path="/products" element={<Home/>} />
+                <Route path="/searchpage" element={<Search/>} />
                 <Route path="/products/mens" element={<MensSection/>} />
                 <Route path="/products/women" element={<WomensSection/>} />
                 <Route path="/products/kids" element={<KidsSection/>} />
