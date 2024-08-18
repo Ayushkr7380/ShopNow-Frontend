@@ -13,7 +13,12 @@ function ShopNowproductContext(props){
     //total number of items in cart
     const [ noOfItems,setNoOfitems] = useState(0);
     //new user registration
-    const [ userRegistration , setUserRegistration] = useState({name:'',email:'',phone:'',password:''});
+    const [ userRegistration , setUserRegistration] = useState({
+        name:'',
+        email:'',
+        phone:'',
+        password:''
+    });
     //new user login 
     const [ userLogin , setUserLogin] = useState({phone:'',password:''});
     //store the loggedin user data
@@ -24,10 +29,9 @@ function ShopNowproductContext(props){
     const [ showLogoutBtn , setShowLogoutBtn] = useState(false);
     //show cart items of db
     const [cartItems , setCartItems] = useState([]);
-
+    //rerenders addtocart page when it makes changes..
     const [ addtocartChange , setAddtocartChange] = useState(false)
-
-
+    //Store address data and send to DB
     const [saveAddress , setsaveAddress ] = useState({
         fullname : '',
         phonenumber : '',
@@ -37,44 +41,44 @@ function ShopNowproductContext(props){
         housenumber : '',
         roadname : ''
     })
-
+    //stored address 
     const [ storeAddress , setStoreAddress ] = useState([]);
-
+    //store address id
     const [ storeAddressIdForOrder , setStoreAddressIdForOrder] = useState('');
-
+    //Display redirect Page after placing order
     const [ displayRedirect , setDisplayRedirect] = useState(false);
-
+    //Order status i.e order placed or failed
     const [redirectPageName,setRedirectPageName] = useState('');
+    //State for Order Page Loadingbar
     const [ placeOrderLoading ,setPlaceOrderLoading] = useState(false);
+    //Wishlist data
     const [ wishlist , setWishlist ] = useState([]);
-
+    //Fetch all Order data
     const [ orderData , setOrderData] = useState([]);
-
+    //Fetched all wishlist data
     const [ fetchWishlist , setFetchWishlist ] = useState([]);
-
-
+    //Store item data for buyNow
     const [ buyNowData , setBuyNowData ] = useState([]);
-
+    //Rerenders wishlist Page whenever it makes changes
     const [ wishlistChange , setWishlistChange] = useState(false);
-
+    //Rerenders Address page whenever it makes changes
     const [ addressPageChange , setAddressPageChange] = useState(false);
-
+    //Store and Send edited user profile data to DB
     const [editProfile,setEditProfile] = useState({name:'',phone:'',email:''});
-
+    //State for EditProfile Page Loadingbar
     const [ loadingEditProfile , setLoadingEditProfile ] = useState(false);
+    //Status for EditProfile Page i.e edit success or fail
     const [ editProfileStatus , setEditProfileStatus ] = useState("");
-
-    const [ searchPagenavigate , setSearchPageNavigate ] = useState(true);
-
+    //set Search value 
     const [ searchInput , setSeachInput ] = useState("");
-
+    //Fetch all items that is searched
     const [ searchData ,setSearchData] = useState([]);
+    //State for Search Page Loadingbar
     const [ loadingSearchInput , setLoadingSearchInput ] = useState(false);
+    //Status for Search Page i.e Item successfully found or fail
     const [ searchInputStatus , setSearchInputStatus ] = useState("");
 
-    
-
-    //backend url
+    //Backend URL
     const URL = 'http://localhost:5000';
 
     //user registration api call
@@ -151,6 +155,7 @@ function ShopNowproductContext(props){
         }
     }
 
+
     //user logout api call
     async function userlogout(){
         console.log('Clicked Logout')
@@ -187,6 +192,7 @@ function ShopNowproductContext(props){
         console.log(userData.name)
     }
 
+    //Remove item from cart api call
     async function removeItemFromCart(itemid){
         console.log('Item to be removed is ',itemid);
         try {
@@ -201,7 +207,7 @@ function ShopNowproductContext(props){
         }
     }
     
-
+    //set quantity of each items api call
     async function handleQuanityofEachItem(itemid,quantity,priceofEachItem){
         console.log('Clicked for quantity');
         console.log(`${quantity} item order of item id : ${itemid} worth ₹${priceofEachItem}`);
@@ -215,11 +221,6 @@ function ShopNowproductContext(props){
             })
 
             console.log(response.data.cart);
-            // setAuthStateChange(!authStateChange)
-            // const total = cartItems.reduce((sum,item)=>sum+Number(item.totalprice),0);
-            // console.log('After cart Update',total)
-            // setCartTotal(total);
-            // console.log('Total Bill after cart update',cart)
             cartData();
             setAddtocartChange(!addtocartChange);
 
@@ -228,6 +229,7 @@ function ShopNowproductContext(props){
         }
     }
 
+    //Add address to DB api call
     const submitAddress = (e) =>{
         e.preventDefault();
         console.log(saveAddress);
@@ -252,6 +254,7 @@ function ShopNowproductContext(props){
         
     }
     
+    //fetch all address api call
     const fetchSavedAddress = async()=>{
         try {
             const response = await axios.get(`${URL}/user/addaddress`,{withCredentials:true});
@@ -264,9 +267,9 @@ function ShopNowproductContext(props){
         }
     }
 
+    //Place Order api call
     const placeOrderfnc = async()=>{
         if(buyNowData.length > 0){
-
             console.log('Buy Now Worked..');
             try {
                 setPlaceOrderLoading(true);
@@ -305,8 +308,7 @@ function ShopNowproductContext(props){
                 }, 4000);
             }
         }
-        else{
-            
+        else{           
             console.log('add to cart Worked..');
             try {
                 setPlaceOrderLoading(true);
@@ -352,6 +354,7 @@ function ShopNowproductContext(props){
         }
     }
 
+    //Add item to wishlist api call
     async function addItemToWishlist(productid){
         console.log('add item to wishlist',productid);
         try {
@@ -367,7 +370,7 @@ function ShopNowproductContext(props){
         }
     }
 
-
+    //View all orders api call
     const viewOrder = async() =>{
         console.log('View ordered Clicked..');
         try {
@@ -379,7 +382,7 @@ function ShopNowproductContext(props){
         }
     }
     
-
+    //view all wishlists api call
     const viewWishlist = async()=>{
         console.log('View Wishlist..');
         try {
@@ -392,8 +395,8 @@ function ShopNowproductContext(props){
         }
     }
 
-    
-   const removeFromWishlist = async(wishlistid) =>{
+    //Remove item from wishlist api call
+    const removeFromWishlist = async(wishlistid) =>{
         console.log("removing wishlist id is ",wishlistid);
         try {
             const response = await axios.post(`${URL}/user/removeitemfromwishlist`,{
@@ -409,6 +412,7 @@ function ShopNowproductContext(props){
         }
    }
 
+   //Delete address api call
    const deleteAddress = async(addressid)=>{
         console.log('delete id',addressid);
         try {
@@ -424,6 +428,7 @@ function ShopNowproductContext(props){
         }
    }
 
+   //Edit user profile api call
    const editProfileChange =async()=>{
     console.log("Edit Profile Clicked..");
     setLoadingEditProfile(true);
@@ -442,6 +447,7 @@ function ShopNowproductContext(props){
     }
    }
 
+   //search item api call
    const searchInputfnc = async()=>{
         console.log('Input Data',searchInput);
         try {
@@ -459,11 +465,10 @@ function ShopNowproductContext(props){
             setSearchInputStatus(error.response.data.message);
         }
    }
-   console.log('Search Input Status',searchInputStatus);
    
     return(
         <>
-            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist, buyNowData , setBuyNowData,removeFromWishlist,wishlistChange,deleteAddress,addressPageChange,editProfile,setEditProfile,editProfileChange,loadingEditProfile , setLoadingEditProfile ,editProfileStatus,setEditProfileStatus,searchPagenavigate , setSearchPageNavigate,searchInput , setSeachInput,searchInputfnc ,searchData,loadingSearchInput,searchInputStatus}}>
+            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist, buyNowData , setBuyNowData,removeFromWishlist,wishlistChange,deleteAddress,addressPageChange,editProfile,setEditProfile,editProfileChange,loadingEditProfile , setLoadingEditProfile ,editProfileStatus,setEditProfileStatus,searchInput , setSeachInput,searchInputfnc ,searchData,loadingSearchInput,searchInputStatus}}>
                 {props.children}
             </CreateProductContext.Provider>
         </>
