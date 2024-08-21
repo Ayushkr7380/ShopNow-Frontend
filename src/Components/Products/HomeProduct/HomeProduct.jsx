@@ -8,7 +8,6 @@ function HomeProduct({type,title}){
     async function fetchData(){
         try {
             const response = await axios.get(`${URL}/products/?type=${type}`)
-            // console.log(response.data);
             setData([...response.data.filteredproducts])
         } catch (error) {
             console.log(error.message);
@@ -17,7 +16,6 @@ function HomeProduct({type,title}){
     useEffect(()=>{
         fetchData()
     },[])
-    // console.log(data);
     
     return (
         <>  

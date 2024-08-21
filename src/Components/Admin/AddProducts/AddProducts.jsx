@@ -9,8 +9,7 @@ function AddProducts(){
     const navigate = useNavigate();
     const URL = `http://localhost:5000`
     async function adminHome(){
-        try {
-            
+        try {           
             const response  = await axios.get(`${URL}/auth/`,{withCredentials:true});
             console.log('username ',response.data.user);
             setAdminInfo(response.data.user);

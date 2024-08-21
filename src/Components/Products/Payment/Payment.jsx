@@ -5,7 +5,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 function Payment(){
     const context = useContext(CreateProductContext);
-    const { storeAddressIdForOrder ,cart , cartData , cartItems ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,buyNowData} = context;
+    const { storeAddressIdForOrder ,cart , cartItems ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,buyNowData} = context;
     const URL = `http://localhost:5000`;
     const [selectedAddressData , setSelectedAddressData] = useState({});
     
@@ -39,6 +39,7 @@ function Payment(){
     console.log(selectedAddressData);
     console.log("In P",cartItems);
     console.log("storeAddressIdForOrder",storeAddressIdForOrder);
+    
     return(
         <>
             <div className="">

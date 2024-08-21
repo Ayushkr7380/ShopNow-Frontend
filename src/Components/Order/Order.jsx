@@ -1,20 +1,15 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import { CreateProductContext } from "../../Context/ProductContext/CreateProductContext"
 
 const Order = () => {
   const context = useContext(CreateProductContext);
   const {viewOrder , orderData } = context;
 
-
-  
   useEffect(()=>{
     viewOrder()
     
   },[])
-  
-  
-  
-  // console.log(orderData);
+ 
   return (
     <div>
         <div className="md:text-2xl italic p-3 m-2">
@@ -38,9 +33,6 @@ const Order = () => {
                       </div>
                     )}
                  <hr />
-                
-                {/* <p className="ml-2">{ele.ProductName}</p> */}
-                {/* <p className="ml-2 text-lg font-bold">₹{ele.totalprice}</p>         */}
           </div>   
               )}
           </div>

@@ -5,22 +5,18 @@ import { MdOutlineDeleteForever } from "react-icons/md";
 
 function AddToCart(){
     const context = useContext(CreateProductContext);
-    const { cartData ,cartItems,setCartTotal,removeItemFromCart,authStateChange,handleQuanityofEachItem,cart,userData,setBuyNowData} = context;
+    const { cartData ,cartItems,removeItemFromCart,authStateChange,handleQuanityofEachItem,cart,userData,setBuyNowData} = context;
     console.log('CartItems',cartItems);
 
-    //Quantity of each item in cart
     const [ quanityOfEachItem , setQuantityOfEachItem] = useState({});
     const [ priceofEachItem ,setPriceOfEachItem] = useState({});
     const [ openInputBox ,setOpenInputBox] = useState({});
-
-
 
     function noofitemsfromcart(){
         cartItems.map((ele)=>setQuantityOfEachItem((prev)=>({...prev,[ele._id]:ele.noofitems})));
         cartItems.map((ele)=>setPriceOfEachItem((prev)=>({...prev,[ele._id]:ele.totalprice})));
   
     }
-    
 
     useEffect(()=>{
         cartData();

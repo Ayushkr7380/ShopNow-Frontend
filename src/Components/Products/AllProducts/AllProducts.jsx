@@ -7,31 +7,28 @@ import { CreateProductContext } from "../../../Context/ProductContext/CreateProd
 const AllProducts = () => {
 
     const context = useContext(CreateProductContext);
-    const {setCartTotal , isAddedToCart , setIsAddedToCart ,noOfItems ,setNoOfitems ,postAddtoCart,userData,authStateChange,cartItems,wishlist , setWishlist,addItemToWishlist,setAuthStateChange,buyNowData , setBuyNowData} = context;
+    const {setCartTotal , isAddedToCart , setIsAddedToCart ,noOfItems ,setNoOfitems ,postAddtoCart,userData,authStateChange,wishlist , setWishlist,addItemToWishlist,buyNowData , setBuyNowData} = context;
     const location = useLocation();
 
     const navigate = useNavigate();
     const queryParams = new URLSearchParams(location.search);
     
     const type = queryParams.get('type');
-
+    
+    const [data,setData] = useState([]);
+    
     const addtocartfnc =(productid,productprice)=>{
         setCartTotal((prev)=>prev + Number(productprice));
         setIsAddedToCart((prev)=>[...prev , productid]);
         setNoOfitems(noOfItems + 1);
         postAddtoCart(productid,productprice);
     }
-
-
-    console.log('allpro',userData);
     
     const checkAddedTocartFnc = (productid) =>{
         return isAddedToCart.includes(productid);
     }
 
-    const [data,setData] = useState([]);
     
-
     const handleWishlist = (productid) =>{
         console.log('Wishlist Clicked.. with ',productid);
         setWishlist((prev)=>{
@@ -44,12 +41,10 @@ const AllProducts = () => {
         });
         addItemToWishlist(productid);    
     }
-    // console.log(wishlist);
 
     const URL = 'http://localhost:5000';
     async function fetchData(){
-        try {
-            
+        try {          
             const response = await axios.get(`${URL}/products/?type=${type}`);
             setData([...response.data.filteredproducts]);
         } catch (error) {
@@ -63,14 +58,12 @@ const AllProducts = () => {
             const response = await axios.get(`${URL}/user/wishlist`,{withCredentials:true});
             console.log("Wishlist items fetched",response.data.wishlist);
             const wishlistProductIds = response.data.wishlist.map(item => item.product._id);
-            // setAuthStateChange(!authStateChange);
             console.log("wishlist ids",wishlistProductIds);
             setWishlist(wishlistProductIds);
         } catch (error) {
             console.log(error.message);
         }
     }
-
 
     const handleBuyNow = (productid,price)=>{
         console.log('Buy Now id',productid);
@@ -85,7 +78,6 @@ const AllProducts = () => {
     }
     useEffect(()=>{
         fetchData()
-        // cartData()
         setBuyNowData([])
         fetchWishlist()
     },[authStateChange])

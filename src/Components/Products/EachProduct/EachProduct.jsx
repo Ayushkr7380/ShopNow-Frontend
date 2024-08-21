@@ -17,7 +17,6 @@ function EachProduct(){
         console.log('fetch Each Product Data clicked with id',productid);
         try {
             const response = await axios.get(`${URL}/products/eachitem/${productid}`,{withCredentials:true});
-            // console.log(response.data.item);
             setItemData(response.data.item);
         } catch (error) {
             console.log(error.message)
@@ -54,7 +53,6 @@ function EachProduct(){
             const response = await axios.get(`${URL}/user/wishlist`,{withCredentials:true});
             console.log("Wishlist items fetched",response.data.wishlist);
             const wishlistProductIds = response.data.wishlist.map(item => item.product._id);
-            // setAuthStateChange(!authStateChange);
             console.log("wishlist ids",wishlistProductIds);
             setLoadingEachItem(false);
             setWishlist(wishlistProductIds);
@@ -80,7 +78,6 @@ function EachProduct(){
         setBuyNowData([]);
         fetchWishlist()
     },[authStateChange])
-    // console.log('a',itemData);
     console.log('Buy Now data',buyNowData);
     return(
         <>{loadingEachItem  ? (

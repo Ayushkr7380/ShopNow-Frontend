@@ -15,14 +15,6 @@ function ImageSlider() {
             name:'kids',
             url: 'https://cdn.pixabay.com/photo/2017/06/21/08/00/pictogram-2426409_1280.jpg'
         },
-        // {
-        //     name:'phone',
-        //     url: 'https://cdn.pixabay.com/photo/2017/08/15/13/21/sun-2643866_1280.jpg'
-        // },
-        // {
-        //     name:'laptop',
-        //     url: 'https://cdn.pixabay.com/photo/2017/06/14/07/05/siberian-2401287_1280.jpg'
-        // },
     ];
 
     const [ currentIndex ,setCurrentIndex] = useState(0);

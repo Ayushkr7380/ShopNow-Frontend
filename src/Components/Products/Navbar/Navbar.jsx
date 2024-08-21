@@ -1,25 +1,23 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CreateProductContext } from "../../../Context/ProductContext/CreateProductContext";
 import { FaSearch } from "react-icons/fa";
 
 function Navbar(){
     const context = useContext(CreateProductContext);
-    const { cart ,noOfItems ,userData,authStateChange,cartData,fetchUser,addtocartChange,searchPagenavigate , setSearchPageNavigate,setSeachInput,searchInput ,searchInputfnc} = context;
+    const { cart ,noOfItems ,userData,authStateChange,cartData,fetchUser,addtocartChange,setSeachInput,searchInput ,searchInputfnc} = context;
     const navigate = useNavigate();
   
     const handleInputClick =()=>{
         console.log('Input Clicked');
-        navigate('/searchpage')
-        
+        navigate('/searchpage')        
         searchInputfnc()
     }
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
-            navigate('/searchpage')
-        
-            searchInputfnc()
+            navigate('/searchpage')        
+           searchInputfnc()
         }
       };
 
@@ -31,7 +29,7 @@ function Navbar(){
         cartData()    
     },[authStateChange,addtocartChange])
 
-    
+   
     return(
     <>
    

@@ -15,8 +15,7 @@ function AdminRegistration(){
             [name]:value,
         })
     }
-    
-    // console.log(formData);
+
     return(
         <>
             <div>
