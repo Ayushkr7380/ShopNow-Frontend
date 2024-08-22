@@ -14,7 +14,6 @@ function EachProduct(){
     const URL = 'http://localhost:5000';
     
     const fetchEachProductdata = async(productid)=>{
-        console.log('fetch Each Product Data clicked with id',productid);
         try {
             const response = await axios.get(`${URL}/products/eachitem/${productid}`,{withCredentials:true});
             setItemData(response.data.item);
@@ -34,7 +33,6 @@ function EachProduct(){
     }
 
     const handleWishlist = (productid) =>{
-        console.log('Wishlist Clicked.. with ',productid);
         setWishlist((prev)=>{
             if(!prev.includes(productid)){
                 return [...prev,productid];
@@ -47,23 +45,18 @@ function EachProduct(){
     }
 
     async function fetchWishlist(){
-        console.log('fetch wishlist data');
         try {
             setLoadingEachItem(true);
             const response = await axios.get(`${URL}/user/wishlist`,{withCredentials:true});
-            console.log("Wishlist items fetched",response.data.wishlist);
             const wishlistProductIds = response.data.wishlist.map(item => item.product._id);
-            console.log("wishlist ids",wishlistProductIds);
             setLoadingEachItem(false);
             setWishlist(wishlistProductIds);
         } catch (error) {
             setLoadingEachItem(false);
-            console.log(error.message);
         }
     }
 
     const handleBuyNow = (productid,price)=>{
-        console.log('Buy Now id',productid);
         setBuyNowData([{
             'products':{
                 "_id":productid
@@ -78,7 +71,6 @@ function EachProduct(){
         setBuyNowData([]);
         fetchWishlist()
     },[authStateChange])
-    console.log('Buy Now data',buyNowData);
     return(
         <>{loadingEachItem  ? (
             <div className="flex justify-center my-[35vh]">

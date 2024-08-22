@@ -13,9 +13,7 @@ function Payment(){
         try {
             const response = await axios.get(`${URL}/user/addaddress`,{withCredentials:true});
             const allAddress = response.data.address;
-            console.log(allAddress);
             const selectedAddress = allAddress.filter((ele)=>ele._id === storeAddressIdForOrder);
-            console.log('SelectedAddress in Payment page',selectedAddress);
             setSelectedAddressData(...selectedAddress);
         } catch (error) {
             console.log(error.message);
@@ -36,9 +34,6 @@ function Payment(){
         placeOrderfnc();
         setDisplayRedirect(true);
     }
-    console.log(selectedAddressData);
-    console.log("In P",cartItems);
-    console.log("storeAddressIdForOrder",storeAddressIdForOrder);
     
     return(
         <>

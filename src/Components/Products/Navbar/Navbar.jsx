@@ -9,7 +9,6 @@ function Navbar(){
     const navigate = useNavigate();
   
     const handleInputClick =()=>{
-        console.log('Input Clicked');
         navigate('/searchpage')        
         searchInputfnc()
     }

@@ -11,10 +11,8 @@ function AddProducts(){
     async function adminHome(){
         try {           
             const response  = await axios.get(`${URL}/auth/`,{withCredentials:true});
-            console.log('username ',response.data.user);
             setAdminInfo(response.data.user);
         } catch (error) {
-            console.log(error.message);
             navigate('/admin/login')
         }
     }

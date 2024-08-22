@@ -6,7 +6,6 @@ import { MdOutlineDeleteForever } from "react-icons/md";
 function AddToCart(){
     const context = useContext(CreateProductContext);
     const { cartData ,cartItems,removeItemFromCart,authStateChange,handleQuanityofEachItem,cart,userData,setBuyNowData} = context;
-    console.log('CartItems',cartItems);
 
     const [ quanityOfEachItem , setQuantityOfEachItem] = useState({});
     const [ priceofEachItem ,setPriceOfEachItem] = useState({});
@@ -33,15 +32,12 @@ function AddToCart(){
             setQuantityOfEachItem((prev)=>({...prev,[itemid]:value}));
 
             const total = Number(value)*Number(totalprice);
-            console.log('Total in variable',total);
 
             setPriceOfEachItem((prev)=>({...prev,[itemid]:total}));
             
             handleQuanityofEachItem(itemid,value,total);
         }
     }
-    console.log('quantity',quanityOfEachItem);
-    console.log('price',priceofEachItem);
 
     const handleCustomSubmit = (e,itemid,totalprice)=>{
         e.preventDefault();
@@ -53,11 +49,9 @@ function AddToCart(){
             handleQuanityofEachItem(itemid,'1',totalprice);
         }
         else{
-            console.log(quanityOfEachItem);
             setOpenInputBox((prev)=>({...prev,[itemid]:false}));
 
             const total = Number(quantity)*Number(totalprice);
-            console.log('Total in variable',total);
 
             setPriceOfEachItem((prev)=>({...prev,[itemid]:total}))
             handleQuanityofEachItem(itemid,quantity,total);

@@ -30,7 +30,6 @@ const AllProducts = () => {
 
     
     const handleWishlist = (productid) =>{
-        console.log('Wishlist Clicked.. with ',productid);
         setWishlist((prev)=>{
             if(!prev.includes(productid)){
                 return [...prev,productid];
@@ -53,12 +52,9 @@ const AllProducts = () => {
     }
     
     async function fetchWishlist(){
-        console.log('fetch wishlist data');
         try {
             const response = await axios.get(`${URL}/user/wishlist`,{withCredentials:true});
-            console.log("Wishlist items fetched",response.data.wishlist);
             const wishlistProductIds = response.data.wishlist.map(item => item.product._id);
-            console.log("wishlist ids",wishlistProductIds);
             setWishlist(wishlistProductIds);
         } catch (error) {
             console.log(error.message);
@@ -66,7 +62,6 @@ const AllProducts = () => {
     }
 
     const handleBuyNow = (productid,price)=>{
-        console.log('Buy Now id',productid);
         setBuyNowData([{
             'products':{
                 "_id":productid
@@ -82,7 +77,6 @@ const AllProducts = () => {
         fetchWishlist()
     },[authStateChange])
 
-    console.log('Buy Now data from allproduct page',buyNowData)
     return (
         <>
         
