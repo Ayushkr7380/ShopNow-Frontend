@@ -2,8 +2,9 @@ import HomeProduct from "../HomeProduct/HomeProduct"
 function MensSection(){
     return(
         <>            
-            <HomeProduct type="mensshirts"/>
+            <HomeProduct type="menshoe"/>
             <HomeProduct type="menstshirts"/>
+            <HomeProduct type="mensjacket"/>
         </>
     )
 }
