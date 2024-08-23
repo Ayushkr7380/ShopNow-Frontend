@@ -82,10 +82,19 @@ function EachProduct(){
                     <div className="md:w-1/2 p-2 md:p-5 md:mx-2">
                         <img className="md:h-[480px]" src={itemData.ProductPhoto && itemData.ProductPhoto.secure_url} alt={itemData.ProductName}/>
                     </div>
-                    <div className="flex p-2  cursor-pointer m-2" onClick={()=>handleWishlist(itemData._id)} >
-                            {wishlist.includes(itemData._id) ? ( <FaHeart className="text-xl text-red-600"/> ): (<FaRegHeart className="text-xl"/> )}
-                                         
-                    </div>
+                    {userData && userData.name ? (
+                        <div className="flex p-2  cursor-pointer m-2" onClick={()=>handleWishlist(itemData._id)} >
+                                {wishlist.includes(itemData._id) ? ( <FaHeart className="text-xl text-red-600"/> ): (<FaRegHeart className="text-xl"/> )}
+                                            
+                        </div>
+                        )
+                     : (
+                        <Link to={'/auth/userlogin'}>
+                            <div className="flex p-2  cursor-pointer m-2">
+                                <FaRegHeart className="text-xl"/>
+                            </div>
+                        </Link>
+                     )}
                     <div className="w-[1px] border-[1px] border-gray-400"></div>
                     <div className=" md:w-1/2  p-2 md:mx-[100px] md:flex md:flex-col md:justify-center">
                         <div className=" p-2">
@@ -96,14 +105,14 @@ function EachProduct(){
                         </div>
                         <div className="flex gap-2 p-2 my-2 cursor-pointer">
                             
-                            {userData  ? (
+                            {userData && userData.name ? (
                                 checkAddedTocartFnc(itemData._id) ? (
                                     <p className="border-gray-400 border-2 py-1 rounded-md font-semibold bg-green-500 text-white px-2">
                                         Added to cart
                                     </p>
                                 ) : (
                                     <p
-                                        className="border-2 border-gray-400 py-1 rounded-md font-semibold bg-orange-500 text-white px-2 hover:bg-orange-600"
+                                        className="border-2 border-gray-400 py-1 rounded-md font-semibold bg-orange-400 text-white px-2 hover:bg-orange-600"
                                         onClick={() => addtocartfnc(itemData._id, itemData.ProductPrice)}
                                     >
                                         Add to cart
@@ -111,14 +120,23 @@ function EachProduct(){
                                 )
                             ) : (
                                 <Link to={'/auth/userlogin'}>
-                                    <p className="bg-red-500 text-white md:px-3 py-[3px] px-[5px] text-[14px] md:py-2 md:font-semibold rounded-lg hover:bg-red-700">Add to cart</p>
+                                    <p className="bg-red-500  text-white md:px-3 py-[3px] px-[5px] text-[14px] md:py-2 md:font-semibold rounded-lg hover:bg-red-700">Add to cart</p>
                                 </Link>
                             )}
+                            {userData && userData.name ? (
                             <div onClick={()=>handleBuyNow(itemData._id,itemData.ProductPrice)}>
-                                <p className="border-2 border-gray-500 py-1 rounded-md font-semibold bg-red-600 text-white px-2">
+                                <p className="border-2 border-gray-500 py-1 rounded-md font-semibold bg-orange-600 text-white px-2">
                                     Buy Now
                                 </p>
                             </div>
+                            )
+                             : (
+                                <Link to={'/auth/userlogin'}>
+                                    <p className="border-2 border-gray-500 py-1 rounded-md font-semibold bg-orange-600 text-white px-2 ">
+                                    Buy Now
+                                    </p>
+                                </Link>
+                             )}
                         </div>
                     </div>
                     

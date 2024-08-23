@@ -84,10 +84,19 @@ const AllProducts = () => {
         <div className=" py-2  relative grid grid-cols-2 md:grid-cols-4 mx-4 sm:grid-cols-3 ">
             {data && data.map((ele,idx)=>
                     <div  className="border-2 border-black  md:mx-2 mt-3 md:w-[300px] mx-[3px]  p-1 md:p-3 rounded-md " key={idx}>
+                        {userData && userData.name ? ( 
                         <div className="flex p-2 float-right cursor-pointer" onClick={()=>handleWishlist(ele._id)} >
                             {wishlist.includes(ele._id) ? ( <FaHeart className="text-xl text-red-600"/> ): (<FaRegHeart className="text-xl"/> )}
                                          
                         </div>
+                        )
+                        : (
+                            <Link to={'/auth/userlogin'}>
+                                <div className="flex p-2 float-right cursor-pointer">
+                                    <FaRegHeart className="text-xl"/>
+                                </div>
+                            </Link>
+                        )}
                         <Link  to={`/products/${ele._id}`}>
                         
                         <div>
@@ -99,7 +108,7 @@ const AllProducts = () => {
                         </Link>
                         <div className="flex justify-evenly mt-2 gap-[1px] cursor-pointer">
                     
-                        {userData  ? (
+                        {userData && userData.name ? (
                                 checkAddedTocartFnc(ele._id) ? (
                                     <p className="bg-green-500 text-white md:px-3 py-[3px] px-[5px] text-[14px] md:py-2 md:font-semibold rounded-lg">
                                         Added to cart
@@ -117,9 +126,16 @@ const AllProducts = () => {
                                     <p className="bg-red-500 text-white md:px-3 py-[3px] px-[5px] text-[14px] md:py-2 md:font-semibold rounded-lg hover:bg-red-700">Add to cart</p>
                                 </Link>
                             )}
+                            {userData && userData.name ? ( 
                             <div onClick={()=>handleBuyNow(ele._id,ele.ProductPrice)}>
                                 <p className="bg-orange-500 text-white md:px-3 py-[3px] px-[5px] text-[14px] md:py-2 md:font-semibold rounded-lg hover:bg-orange-600">Buy Now</p>
                             </div>
+                            )
+                            : (
+                                <Link to={'/auth/userlogin'}>
+                                    <p className="bg-orange-500 text-white md:px-3 py-[3px] px-[5px] text-[14px] md:py-2 md:font-semibold rounded-lg hover:bg-orange-600">Buy Now</p>
+                                </Link>
+                            )}
                         </div>
                     </div>               
             )}
