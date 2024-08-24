@@ -26,7 +26,8 @@ function Home(){
             <HomeProduct type='kidsjacket' title="jackets for kid"/>    
             <HomeProduct type='kidsshirt' title="shirts for kid"/>                
             <HomeProduct type='laptop' title="laptops"/>    
-            <HomeProduct type='watch' title="watches"/>    
+            <HomeProduct type='watch' title="watches"/>   
+            
         </>
     )
 }
