@@ -43,7 +43,7 @@ function Navbar(){
                     </div>
 
                     
-                    <div className="w-full max-w-xs xl:max-w-lg 2xl:max-w-2xl bg-gray-100 rounded flex items-center justify-between p-1 ml-[20px]">    
+                    <div className="w-full max-w-xs xl:max-w-lg 2xl:max-w-2xl bg-gray-100 rounded flex items-center justify-between md:p-1 ml-[20px]">    
                             <input 
                                 className="bg-transparent font-semibold text-sm px-3 py-2 w-full outline-none"
                                 type="text"

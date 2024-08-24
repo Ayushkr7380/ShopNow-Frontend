@@ -5,15 +5,17 @@ function ImageSlider() {
     const images = [
         {
             name:'mens',
-            url: 'https://cdn.pixabay.com/photo/2017/09/13/09/21/hockey-2744912_960_720.jpg'
+            url: 'https://cdn.pixabay.com/photo/2017/11/29/04/02/walk-2985198_1280.jpg'
+            
         },
         {
             name:'women',
-            url: 'https://cdn.pixabay.com/photo/2012/02/29/15/52/track-19217_1280.jpg'
+            url: 'https://cdn.pixabay.com/photo/2016/06/29/21/14/women-1487825_1280.jpg'
         },
         {
+            
             name:'kids',
-            url: 'https://cdn.pixabay.com/photo/2017/06/21/08/00/pictogram-2426409_1280.jpg'
+            url: 'https://cdn.pixabay.com/photo/2017/09/13/09/21/hockey-2744912_960_720.jpg'
         },
     ];
 

@@ -1,7 +1,11 @@
+import HomeProduct from "../HomeProduct/HomeProduct";
+
 function KidsSection(){
     return(
         <>
-            <div>KidsSection</div>
+            <HomeProduct type='kidsjeans' title="jeans for kid"/>    
+            <HomeProduct type='kidsjacket' title="jackets for kid"/>    
+            <HomeProduct type='kidsshirt' title="shirts for kid"/> 
         </>
     )
 }
