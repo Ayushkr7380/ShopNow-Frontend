@@ -46,7 +46,7 @@ const Wishlist = () => {
             )}
           </div>
         ) : (
-          <div className="italic text-gray-500 text-center">
+          <div className="italic text-gray-500 text-center md:my-[9.9vh]  my-[17.4vh]">
             <p>Wishlist is empty!!</p>
           </div>
         )}

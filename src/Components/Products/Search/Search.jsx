@@ -16,7 +16,7 @@ const Search = () => {
       ) : (
         <>
           {searchInputStatus ? (
-            <div className="text-center mt-10">
+            <div className="text-center m-10">
               <p className="text-lg font-semibold italic text-gray-500">{searchInputStatus}</p>
             </div>
           ) : (

@@ -7,7 +7,7 @@ function App() {
     <>
       <Navbar/>
       <CustomRoute/>
-      <Footer/> 
+      
     </>
   )
 }

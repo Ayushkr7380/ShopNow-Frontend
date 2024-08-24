@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react"
 import HomeProduct from "../HomeProduct/HomeProduct"
 import ImageSlider from "../ImageSlider/ImageSlider"
 import { CreateProductContext } from "../../../Context/ProductContext/CreateProductContext";
+import Footer from "../../Footer/Footer";
 
 function Home(){
     const context = useContext(CreateProductContext);
@@ -27,7 +28,7 @@ function Home(){
             <HomeProduct type='kidsshirt' title="shirts for kid"/>                
             <HomeProduct type='laptop' title="laptops"/>    
             <HomeProduct type='watch' title="watches"/>   
-            
+            <Footer/> 
         </>
     )
 }

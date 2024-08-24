@@ -13,25 +13,25 @@ function UserLogin(){
     }
     return(
         <>
-            <div className="border-2 border-black flex justify-center my-3 py-4 w-[400px] mx-auto">
+            <div className="border-2 border-gray-400 flex justify-center  md:my-[9.3vh] py-4 md:w-[400px] md:mx-auto rounded-md m-3">
                 <form onSubmit={userLoginHandleSubmit}>
                     <p>Enter phone Number</p>
                     <input 
                         type="text"
-                        className="border-2 border-black px-3 py-1 rounded-md"
+                        className="border-2 border-gray-300 px-3 py-1 rounded-md outline-none"
                         name="phone"
                         onChange={handleChange}
                      />
                      <p>Enter Password</p>
                      <input
                         type="password"
-                        className="border-2 border-black px-3 py-1 rounded-md"
+                        className="border-2 border-gray-300 px-3 py-1 rounded-md outline-none"
                         name="password"
                         onChange={handleChange}
                      />
                      <div className="mt-4 flex justify-center">
-                        <button type="submit" className="cursor-pointer bg-blue-500 text-white px-4  rounded-lg py-1">Login</button>
-                        <Link className="underline ml-4" to={'/auth/userregistration'}>Signup</Link>
+                        <button type="submit" className="cursor-pointer bg-blue-500 text-white px-4  rounded-lg py-1 hover:bg-blue-700">Login</button>
+                        <Link className="ml-4 hover:underline" to={'/auth/userregistration'}>Signup</Link>
                      </div>
                 </form>
             </div>        

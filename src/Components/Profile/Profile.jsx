@@ -25,7 +25,7 @@ const Profile = () => {
   console.log(editProfile)
   return (
     <>
-        <div className="italic m-2 text-xl font-bold p-2 text-gray-400">
+        <div className="italic m-2 text-xl font-bold p-2 text-gray-400 ">
           <p>Edit Profile</p>
         </div>
         <hr />

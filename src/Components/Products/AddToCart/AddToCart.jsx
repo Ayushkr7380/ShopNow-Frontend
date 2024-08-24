@@ -159,7 +159,7 @@ function AddToCart(){
             
             </>
             ) : (
-                <div className="italic text-gray-500 text-center my-3">
+                <div className="italic text-gray-500 text-center">
                     <p>You cart is empty!!</p>
                 </div>
             ) }
