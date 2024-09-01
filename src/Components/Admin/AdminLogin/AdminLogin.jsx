@@ -17,12 +17,12 @@ function AdminLogin(){
     return(
         <>
             <div>
-                <div className="flex justify-center my-3">
+                <div className="flex justify-center my-3 ">
                     <p className="font-bold text-3xl mt-2 mb-7 underline ">ShopNow Admin</p>
 
                 </div>
                 
-                <div className=" flex flex-col items-center border-2 border-black p-2 w-96  mx-auto my-8 rounded-2xl ">                
+                <div className=" flex flex-col items-center border-2 border-black p-2 w-96  mx-auto my-8 rounded-2xl  ">                
                     <p className="font-semibold text-2xl mb-7 ">Login Page</p>
                     <form className="flex flex-col items-center" onSubmit={loginHandleSubmit}>
                         <input
