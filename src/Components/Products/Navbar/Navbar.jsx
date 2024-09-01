@@ -63,8 +63,8 @@ function Navbar(){
                     <ul className="ml-4 xl:w-48 flex items-center justify-end">
                     
                         <li className=" hidden sm:flex flex-col font-bold">
-                            <span className="text-xs text-white">Cart</span>
-                            <span>₹{cart}</span>
+                            <span className="text-xs text-white italic">Cart</span>
+                            <span className="italic">₹{cart}</span>
                         </li>
                         
                         <li className="ml-2 lg:ml-4 relative inline-block">
