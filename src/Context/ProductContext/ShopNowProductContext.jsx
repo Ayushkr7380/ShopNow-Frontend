@@ -79,7 +79,7 @@ function ShopNowproductContext(props){
     const [ searchInputStatus , setSearchInputStatus ] = useState("");
 
     //Backend URL
-    const URL = 'http://localhost:5000';
+    const URL = import.meta.env.VITE_BackendURL;
 
     //user registration api call
     const UserRegistrationHandleSubmit = (e)=>{
