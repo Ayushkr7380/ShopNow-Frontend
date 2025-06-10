@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 function HomeProduct({type,title}){
     const [data,setData] = useState([]);
-    const URL = 'http://localhost:5000';
+    const URL = import.meta.env.VITE_BackendURL;;
     const [homeProductLoadingBar , setHomeProductLoadingBar ] = useState(false);
     async function fetchData(){
         try {
