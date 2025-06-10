@@ -11,7 +11,7 @@ function EachProduct(){
     const { setCartTotal , isAddedToCart , setIsAddedToCart ,noOfItems ,setNoOfitems ,postAddtoCart,userData,authStateChange, wishlist , setWishlist,addItemToWishlist, buyNowData , setBuyNowData} = context;
     const navigate = useNavigate();
     const [ loadingEachItem , setLoadingEachItem] = useState(false);
-    const URL = 'http://localhost:5000';
+    const URL = import.meta.env.VITE_BackendURL;
     
     const fetchEachProductdata = async(productid)=>{
         try {

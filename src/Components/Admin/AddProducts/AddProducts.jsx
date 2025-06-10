@@ -7,7 +7,7 @@ function AddProducts(){
     const context = useContext(CreateAdminContext);
     const { adminLogout ,addProductFormData,setAddProductFormData ,handleAddProductSubmit , isLoading, addProductStatus} = context;
     const navigate = useNavigate();
-    const URL = `http://localhost:5000`
+    const URL = import.meta.env.VITE_BackendURL;
     async function adminHome(){
         try {           
             const response  = await axios.get(`${URL}/auth/`,{withCredentials:true});
