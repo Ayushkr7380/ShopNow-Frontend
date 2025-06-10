@@ -28,50 +28,54 @@ function ShopNowAdminContext(props){
     
     //Admin Registration on ShopNow Website
 
-    function registerHandleSubmit(e){
-        e.preventDefault();
-        console.log('useState FormData',formData);
-        async function registerAdmin(){
-            try {
-                setIsLoading(true)
-                const response = await axios.post(`${URL}/auth/registration`,formData,{withCredentials: true});
-                console.log(response.data);
-                setIsLoading(false)
-                navigate('/admin/login')
-                
-            } catch (error) {
-                console.log(error.response.data.message);
-                setIsLoading(false)
-                const errorMsg = error.response.data.message;
-                setRegistrationStatus(errorMsg)
+    function registerHandleSubmit(e) {
+    e.preventDefault();
+    console.log('useState FormData', formData);
 
-            }
+    async function registerAdmin() {
+        setIsLoading(true);
+        try {
+            console.log("hello");
+            const response = await axios.post(`${URL}/auth/registration`, formData, { withCredentials: true });
+            console.log("bye");
+            console.log(response.data);
+            navigate('/admin/login');
+        } catch (error) {
+            console.log(error?.response?.data?.message);
+            const errorMsg = error?.response?.data?.message || "Registration failed";
+            setRegistrationStatus(errorMsg);
+        } finally {
+            setIsLoading(false);
         }
-        registerAdmin();
     }
+
+    registerAdmin();
+}
 
     //Admin Login in ShopNow Website
 
-    function loginHandleSubmit(e){
-        e.preventDefault();
-        async function loginAdmin(){
-            try {
-                setIsLoading(true)
-                const response = await axios.post(`${URL}/auth/login`,loginFormData ,{withCredentials: true});
-                console.log(response)
-                console.log(response.data)
-                setIsLoading(false)
-                navigate('/admin')
+function loginHandleSubmit(e) {
+    e.preventDefault();
 
-            } catch (error) {
-                console.log(error.response.data.message)
-                setIsLoading(false)
-                const errorMsg = error.response.data.message
-                setLoginStatus(errorMsg)
-            }
+    async function loginAdmin() {
+        setIsLoading(true);
+        try {
+            const response = await axios.post(`${URL}/auth/login`, loginFormData, { withCredentials: true });
+            console.log(response);
+            console.log(response.data);
+            navigate('/admin');
+        } catch (error) {
+            console.log(error?.response?.data?.message);
+            const errorMsg = error?.response?.data?.message || "Login failed";
+            setLoginStatus(errorMsg);
+        } finally {
+            setIsLoading(false);
         }
-        loginAdmin();
-    }   
+    }
+
+    loginAdmin();
+}
+  
 
     //Admin Logout from ShopNow Website
 
