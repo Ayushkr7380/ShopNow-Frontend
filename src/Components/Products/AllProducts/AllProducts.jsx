@@ -41,7 +41,7 @@ const AllProducts = () => {
         addItemToWishlist(productid);    
     }
 
-    const URL = 'http://localhost:5000';
+    const URL = import.meta.env.VITE_BackendURL;
     async function fetchData(){
         try {          
             const response = await axios.get(`${URL}/products/?type=${type}`);
