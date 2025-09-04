@@ -36,7 +36,7 @@ const Wishlist = () => {
                 </div>
                 <Link  to={`/products/${ele.product._id}`}>
                   <div>
-                      <img className="md:h-[230px] md:w-[300px] p-3 cursor-pointer" src={ele.product.ProductPhoto.secure_url} alt={ele.product.ProductName} />
+                      <img className="md:h-[230px] md:w-[300px] p-3 cursor-pointer" src={ele.product.ProductPhoto.secure_url} alt={ele.product.ProductName} loading="lazy" />
                   </div>
                 <hr/>
                 <p className="ml-2">{ele.product.ProductName}</p>

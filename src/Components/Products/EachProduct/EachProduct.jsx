@@ -80,7 +80,7 @@ function EachProduct(){
             <div className=" m-2">
                 <div className=" m-2 p-2 md:flex">
                     <div className="md:w-1/2 p-2 md:p-5 md:mx-2">
-                        <img className="md:h-[480px]" src={itemData.ProductPhoto && itemData.ProductPhoto.secure_url} alt={itemData.ProductName}/>
+                        <img className="md:h-[480px]" src={itemData.ProductPhoto && itemData.ProductPhoto.secure_url} alt={itemData.ProductName} loading="lazy"/>
                     </div>
                     {userData && userData.name ? (
                         <div className="flex p-2  cursor-pointer m-2" onClick={()=>handleWishlist(itemData._id)} >

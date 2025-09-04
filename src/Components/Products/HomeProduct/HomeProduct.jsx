@@ -42,7 +42,7 @@ function HomeProduct({type,title}){
                             {data && data.slice(0,4).map((ele,idx)=>
                                 <Link key={idx} to={`/products/${ele._id}`} >
                                     <div  className="border-2 border-black  md:mx-2 mt-3 md:w-[300px] mx-[3px]  rounded-md p-3 hover:bg-gray-100">
-                                        <img className="md:w-[300px] p-3" src={ele.ProductPhoto.secure_url} alt={ele.ProductName} />
+                                        <img className="md:w-[300px] p-3" src={ele.ProductPhoto.secure_url} alt={ele.ProductName} loading="lazy"/>
                                         <hr />
                                         <p className="ml-2 md:text-lg text-[11px]">{ele.ProductName.length > 25 ? `${ele.ProductName.slice(0,25)}...` : ele.ProductName}</p>
                                         <p className="ml-2 md:text-lg md:font-bold font-semibold text-sm">₹{ele.ProductPrice}</p>

@@ -81,7 +81,7 @@ function AddToCart(){
                     <div key={idx}>
                         <div className="border-2 border-gray-400 flex m-2  justify-between rounded-md ">
                             <div className="m-3">
-                                <img src={ele.products.ProductPhoto.secure_url} alt={ele.products.ProductName} className="md:h-[200px] w-[200px]  p-3"/>
+                                <img src={ele.products.ProductPhoto.secure_url} alt={ele.products.ProductName} className="md:h-[200px] w-[200px]  p-3" loading="lazy"/>
                             </div>
                             <div className="m-3 p-3 flex flex-col justify-center">
                                 <p>{ele.products.ProductName}</p>

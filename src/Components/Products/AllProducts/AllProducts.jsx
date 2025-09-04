@@ -100,7 +100,7 @@ const AllProducts = () => {
                         <Link  to={`/products/${ele._id}`}>
                         
                         <div>
-                            <img className="md:h-[230px] md:w-[300px] p-3 cursor-pointer" src={ele.ProductPhoto.secure_url} alt={ele.ProductName} />
+                            <img className="md:h-[230px] md:w-[300px] p-3 cursor-pointer" src={ele.ProductPhoto.secure_url} alt={ele.ProductName} loading="lazy"/>
                         </div>
                         <hr />
                         <p className="ml-2 text-sm md:text-lg">{ele.ProductName.length > 30 ? `${ele.ProductName.slice(0,30)}...` : ele.ProductName}</p>
