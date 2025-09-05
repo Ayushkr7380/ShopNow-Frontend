@@ -1,35 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { FaAngleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import ClipLoader from "react-spinners/ClipLoader";
-function HomeProduct({type,title}){
-    const [data,setData] = useState([]);
-    const URL = import.meta.env.VITE_BackendURL;;
-    const [homeProductLoadingBar , setHomeProductLoadingBar ] = useState(false);
-    async function fetchData(){
-        try {
-            setHomeProductLoadingBar(true);
-            const response = await axios.get(`${URL}/products/?type=${type}`)
-            setData([...response.data.filteredproducts]);
-            setHomeProductLoadingBar(false);
-        } catch (error) {
-            setHomeProductLoadingBar(false);
-            console.log(error.message);
-        }
-    }
-    useEffect(()=>{
-        fetchData()
-    },[])
-    
+function HomeProduct({type,title,data}){
     return (
-        <>  {
-                homeProductLoadingBar ? ( 
-                    <div className="text-center my-4">
-                        <ClipLoader/>
-                    </div>
-
-                ) : (
+        
                 <>
                     <div className=" py-4 relative mx-3">
                         <div className="md:mx-[45px] flex justify-between items-center">
@@ -39,7 +12,7 @@ function HomeProduct({type,title}){
                             </Link>                                   
                         </div>
                         <div className="flex justify-center">
-                            {data && data.slice(0,4).map((ele,idx)=>
+                            {Array.isArray(data) && data.map((ele,idx)=>
                                 <Link key={idx} to={`/products/${ele._id}`} >
                                     <div  className="border-2 border-black  md:mx-2 mt-3 md:w-[300px] mx-[3px]  rounded-md p-3 hover:bg-gray-100">
                                         <img className="md:w-[300px] p-3" src={ele.ProductPhoto.secure_url} alt={ele.ProductName} loading="lazy"/>
@@ -53,9 +26,6 @@ function HomeProduct({type,title}){
                     </div>
                     <hr />
                 </>
-                )
-            }
-        </>
     )
 };
 

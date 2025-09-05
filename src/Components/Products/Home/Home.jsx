@@ -1,35 +1,58 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import HomeProduct from "../HomeProduct/HomeProduct"
 import ImageSlider from "../ImageSlider/ImageSlider"
 import { CreateProductContext } from "../../../Context/ProductContext/CreateProductContext";
 import Footer from "../../Footer/Footer";
+import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader"; // spinner
 
-function Home(){
+function Home() {
+    const URL = import.meta.env.VITE_BackendURL;
     const context = useContext(CreateProductContext);
+
     const { setBuyNowData } = context;
-    useEffect(()=>{
+    const [data, setData] = useState({});
+    const [loading, setLoading] = useState(true); // loader state
+    
+    async function fetchData() {
+        try {
+            setLoading(true);
+            const response = await axios.get(`${URL}/products/home`);
+            setData(response.data.results);
+        } catch (error) {
+            console.log(error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
         setBuyNowData([]);
-    },[])
-    return(
+    }, []);
+
+    return (
         <>                  
-            <ImageSlider/>                          
-            <HomeProduct type='menstshirts' title="T-shirts for mens"/>                
-            <HomeProduct type='menshoe' title="shoes for mens"/>                
-            <HomeProduct type='mensshirts' title="shirts for mens"/>                
-            <HomeProduct type='mensjeans' title="jeans for mens"/>                
-            <HomeProduct type='mensjacket' title="jackets for mens"/>  
-            <HomeProduct type='womensshoes' title="shoes for womens"/>                
-            <HomeProduct type='womensshirts' title="shirts for womens"/>                
-            <HomeProduct type='womenstshirts' title="T-shirts for womens"/>                
-            <HomeProduct type='womensjeans' title="jeans for womens"/>                
-            <HomeProduct type='womensjacket' title="jackets for womens"/>               
-            <HomeProduct type='kidsjeans' title="jeans for kid"/>    
-            <HomeProduct type='kidsjacket' title="jackets for kid"/>    
-            <HomeProduct type='kidsshirt' title="shirts for kid"/>                
-            <HomeProduct type='laptop' title="laptops"/>    
-            <HomeProduct type='watch' title="watches"/>   
+            <ImageSlider/> 
+            
+            {loading ? (
+                <div className="flex justify-center items-center h-[300px]">
+                    <ClipLoader color="#2563eb" size={30} />
+                </div>
+            ) : (
+                Object.keys(data).map((type, idx) => (
+                    <HomeProduct 
+                        key={idx} 
+                        type={type} 
+                        title={type} 
+                        data={data[type] || []} 
+                    />
+                ))
+            )}
+            
             <Footer/> 
         </>
     )
 }
-export default Home
+
+export default Home;

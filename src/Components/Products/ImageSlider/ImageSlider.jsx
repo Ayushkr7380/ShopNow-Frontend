@@ -4,17 +4,17 @@ import { useState } from "react";
 function ImageSlider() {
     const images = [
         {
-            name:'mens',
+            name:'menstshirts',
             url: 'https://cdn.pixabay.com/photo/2017/11/29/04/02/walk-2985198_1280.jpg'
             
         },
         {
-            name:'women',
+            name:'womensshirts',
             url: 'https://cdn.pixabay.com/photo/2016/06/29/21/14/women-1487825_1280.jpg'
         },
         {
             
-            name:'kids',
+            name:'kidsshirt',
             url: 'https://cdn.pixabay.com/photo/2017/09/13/09/21/hockey-2744912_960_720.jpg'
         },
     ];
@@ -36,7 +36,7 @@ function ImageSlider() {
     return (
         <>
             <div className="max-w-[1400px] h-[350px] w-full m-auto relative">
-                <Link to={`${images[currentIndex].name}`}>
+                <Link to={`/all/?type=${images[currentIndex].name}`}>
                 <div 
                     style={{ backgroundImage: `url(${images[currentIndex].url})` }} 
                     className="w-full h-full bg-center bg-cover duration-500 cursor-pointer"
