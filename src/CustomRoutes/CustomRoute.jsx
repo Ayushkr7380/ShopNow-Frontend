@@ -18,6 +18,8 @@ import Wishlist from "../Components/Wishlist/Wishlist";
 import Order from "../Components/Order/Order";
 import Profile from "../Components/Profile/Profile";
 import Search from "../Components/Products/Search/Search";
+import ForgotPassword  from "../Components/User/ForgotPassword";
+import ResetPassword from "../Components/User/ResetPassword";
 
 function CustomRoute(){
     return(
@@ -31,6 +33,8 @@ function CustomRoute(){
                 {/* user routes  */}
                 <Route path="/auth/userlogin" element={<UserLogin/>}/>
                 <Route path="/auth/userregistration" element={<UserRegistration/>}/>
+                <Route path="/auth/forgot-password" element={<ForgotPassword/>}/>
+                <Route path="/auth/reset-password/:token" element={<ResetPassword/>}/>
 
                 {/* product routes  */}
                 <Route path="/" element={<Navigate to="/products"/>}/>

@@ -78,6 +78,21 @@ function ShopNowproductContext(props){
     //Status for Search Page i.e Item successfully found or fail
     const [ searchInputStatus , setSearchInputStatus ] = useState("");
 
+
+
+    //reponse message status
+    const [ responseMessage , setresponseMessage] = useState({});  
+    //Loading status for login , registration , forgot , reset 
+    const [ loading , setLoading ] = useState(false); 
+
+
+    //Forgot password email 
+    const [ forgotPasswordEmail , setForgotPasswordEmail] = useState({email:""}); 
+    
+    //reset user password
+    const [ resetPassword , setResetPassword] = useState({token:"",password:"",repeatPassword:""})
+
+
     //Backend URL
     const URL = import.meta.env.VITE_BackendURL;
 
@@ -86,10 +101,20 @@ function ShopNowproductContext(props){
         e.preventDefault();
         async function UserRegister(){
             try {
+                setresponseMessage({})
+                setLoading(true)
                 const response = await axios.post(`${URL}/user/registration`,userRegistration,{withCredentials:true});
-                setUserRegistration({name:'',email:'',phone:'',password:''})
+                setUserRegistration({name:'',email:'',phone:'',password:''});
+                setresponseMessage({status:response.data.success , message:response.data.message});
+                setLoading(false);
+                navigate("/login");
             } catch (error) {
                 console.log(error.message);
+                console.log(error.response?.data)
+                setresponseMessage({status:error.response?.data.success,message:error.response?.data.message});
+            }
+            finally{
+                setLoading(false)
             }
         }
         UserRegister();
@@ -101,18 +126,78 @@ function ShopNowproductContext(props){
         e.preventDefault()
         async function login(){
             try {
+                setresponseMessage({})
+                setLoading(true)
                 const response = await axios.post(`${URL}/user/login`,userLogin,{withCredentials:true});
                 setUserLogin({phone:'',password:''});
-                setAuthStateChange(true)
+                setAuthStateChange(true);
+                setresponseMessage({status:response.data.success , message:response.data.message});
+                setLoading(true)
                 navigate('/products')
             } catch (error) {
                 console.log(error.message)
+                console.log(error.response?.data)
+                setresponseMessage({status:error.response?.data.success,message:error.response?.data.message});
+            }finally{
+                setLoading(false)
             }
         }
         login();
     }
     
+    //Forgot Password api call
 
+    const forgotPassword = (e) =>{
+        e.preventDefault();
+        async function forgetpasswordcall(){
+            try{
+                setresponseMessage({})
+                setLoading(true)
+                const response  = await axios.post(`${URL}/user/forgotpassword`,forgotPasswordEmail);
+                console.log(response.data);
+                setresponseMessage({status:response.data.success , message:response.data.message})
+                setLoading(false)
+            }
+            catch(error){
+                console.log(error.message)
+                console.log(error.response?.data)
+                setresponseMessage({status:error.response?.data.success,message:error.response?.data.message});
+            }finally{
+                setLoading(false)
+            }
+        }
+        forgetpasswordcall();
+    }
+
+
+    const resetUserPassword =(e)=>{
+        e.preventDefault();
+        async function resetPasswordCall(){
+            
+            if(resetPassword.password !== resetPassword.repeatPassword){
+                console.log("Password must be same.")
+                return setresponseMessage({status:false, message:"Password must be same."})
+            }
+            try {
+                setresponseMessage({})
+                setLoading(true)
+               
+                const response  = await axios.post(`${URL}/user/reset-password`,resetPassword);
+                console.log(response.data);
+                setresponseMessage({status:response.data.success , message:response.data.message});
+                navigate("/login");
+                setLoading(false)
+            } catch (error) {
+                console.log(error.message)
+                console.log(error.response?.data.message);
+                setresponseMessage({status:error.response?.data.success,message:error.response?.data.message});
+            }finally{
+                setLoading(false)
+            }
+
+        }
+        resetPasswordCall();
+    }
     //user add to cart api call
     const postAddtoCart = (productid,productprice)=>{
             const data = {
@@ -413,7 +498,7 @@ function ShopNowproductContext(props){
    
     return(
         <>
-            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist, buyNowData , setBuyNowData,removeFromWishlist,wishlistChange,deleteAddress,addressPageChange,editProfile,setEditProfile,editProfileChange,loadingEditProfile , setLoadingEditProfile ,editProfileStatus,setEditProfileStatus,searchInput , setSeachInput,searchInputfnc ,searchData,loadingSearchInput,searchInputStatus}}>
+            <CreateProductContext.Provider value={{cart ,setCartTotal ,isAddedToCart , setIsAddedToCart,noOfItems,setNoOfitems ,postAddtoCart,userRegistration , setUserRegistration,UserRegistrationHandleSubmit,userLogin , setUserLogin,userLoginHandleSubmit,userData,setUserData,userlogout,authStateChange,showLogoutBtn , setShowLogoutBtn,cartData,cartItems , setCartItems,fetchUser,removeItemFromCart,handleQuanityofEachItem,addtocartChange , setAddtocartChange,submitAddress,saveAddress , setsaveAddress,fetchSavedAddress,setStoreAddress,storeAddress,storeAddressIdForOrder , setStoreAddressIdForOrder ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,wishlist , setWishlist,addItemToWishlist,viewOrder,orderData,viewWishlist,fetchWishlist, buyNowData , setBuyNowData,removeFromWishlist,wishlistChange,deleteAddress,addressPageChange,editProfile,setEditProfile,editProfileChange,loadingEditProfile , setLoadingEditProfile ,editProfileStatus,setEditProfileStatus,searchInput , setSeachInput,searchInputfnc ,searchData,loadingSearchInput,searchInputStatus,forgotPasswordEmail,setForgotPasswordEmail,forgotPassword,responseMessage,resetUserPassword,setResetPassword,resetPassword,setresponseMessage,loading}}>
                 {props.children}
             </CreateProductContext.Provider>
         </>
