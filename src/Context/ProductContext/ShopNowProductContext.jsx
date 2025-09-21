@@ -107,7 +107,7 @@ function ShopNowproductContext(props){
                 setUserRegistration({name:'',email:'',phone:'',password:''});
                 setresponseMessage({status:response.data.success , message:response.data.message});
                 setLoading(false);
-                navigate("/login");
+                navigate("auth/userlogin");
             } catch (error) {
                 console.log(error.message);
                 console.log(error.response?.data)
@@ -185,7 +185,7 @@ function ShopNowproductContext(props){
                 const response  = await axios.post(`${URL}/user/reset-password`,resetPassword);
                 console.log(response.data);
                 setresponseMessage({status:response.data.success , message:response.data.message});
-                navigate("/login");
+                navigate("auth/userlogin");
                 setLoading(false)
             } catch (error) {
                 console.log(error.message)
