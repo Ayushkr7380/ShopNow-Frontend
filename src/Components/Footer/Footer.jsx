@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 
 const Footer = () => {
+    const year = new Date().getFullYear();
   return (
     <>
         <footer class="bg-gray-800 relative bottom-0 w-full mt-2">
@@ -39,7 +40,7 @@ const Footer = () => {
             </div>
             <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
             <div class="sm:flex sm:items-center sm:justify-between">
-                <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a to={"#"} class="hover:underline">ShopNow™</a>. All Rights Reserved.
+                <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">©{year} <a to={"#"} class="hover:underline">ShopNow™</a>. All Rights Reserved.
                 </span>
                 <div class="flex mt-4 sm:justify-center sm:mt-0">
                     <Link to={"#"} class="text-gray-500  hover:text-white">
