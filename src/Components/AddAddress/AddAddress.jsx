@@ -55,7 +55,7 @@ function AddAddress(){
                     </div>
                     <div className="md:flex md:flex-wrap md:gap-3 justify-center ">
                         {storeAddress && storeAddress.map((ele,idx)=>
-                        <div className="border-2 border-black  rounded-md m-2">
+                        <div className="border-2 border-black  rounded-md m-2" key={idx}>
                             <div className="float-right  p-1 text-xl hover:text-red-500 text-blue-700 cursor-pointer" onClick={()=>handleDeleteAddress(ele._id)}>
                                 <MdOutlineDeleteForever />
                             </div>

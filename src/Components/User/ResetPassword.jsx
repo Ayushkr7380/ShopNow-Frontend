@@ -25,7 +25,7 @@ const ResetPassword = ()=>{
 
     console.log(resetPassword)
     return (
-        <div className="flex justify-center items-center min-h-[90vh] bg-gray-100">
+        <div className="flex justify-center items-center min-h-[100vh] bg-gray-100">
       <div className="bg-white shadow-md rounded-lg p-6 w-96">
         <h2 className="text-xl font-bold mb-4 text-center">Forgot Password</h2>
 

@@ -6,7 +6,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 function Payment(){
     const context = useContext(CreateProductContext);
     const { storeAddressIdForOrder ,cart , cartItems ,placeOrderfnc,displayRedirect , setDisplayRedirect,redirectPageName,placeOrderLoading,buyNowData} = context;
-    const URL = `http://localhost:5000`;
+    const URL = import.meta.env.VITE_BackendURL;
     const [selectedAddressData , setSelectedAddressData] = useState({});
     
     const fetchSelectedAddress = async()=>{
